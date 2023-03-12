@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+
+:root {
+  // font
+
+  --font-family-main: 'Inconsolata', sans-serif;
+
+  --font-size-s: 12px;
+  --font-line-s: 20px;
+  --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+
+  --font-size-m: 16px;
+  --font-line-m: 24px;
+  --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+
+  --font-size-l: 24px;
+  --font-line-l: 32px;
+  --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+  --font-size-xl: 32px;
+  --font-line-xl: 40px;
+  --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
+  // sizes
+
+  --navbar-height: 50px;
+  --sidebar-width: 280px;
+  --sidebar-width-collapsed: 64px;
+
+  // colors
+
+  // --overlay-color: rgba($color: #a51da3, $alpha: 0.2);
+  --overlay-color: rgba(165, 29, 163, 0.2);
+}
