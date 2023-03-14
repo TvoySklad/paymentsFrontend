@@ -1,0 +1,30 @@
+.Header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  // width: 132px;
+  // height: 37px;
+}
+
+.header__backButton {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 110%;
+  /* or 15px */
+
+  letter-spacing: -0.02em;
+
+  cursor: pointer;
+  transition: scale 0.1s linear;
+  &:active {
+    scale: 1.05;
+  }
+}
