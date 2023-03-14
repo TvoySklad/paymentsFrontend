@@ -2,17 +2,31 @@ import { FC } from 'react';
 import cn from './Input.module.scss';
 
 interface InputProps {
-  id: string
+  id: string;
   className?: string;
   title?: string;
-  placeholder?: string
+  placeholder?: string;
   value: string;
   inputType?: string;
+  min?: string;
+  max?: string;
+  required?: boolean;
   setValue: (value: string) => void;
 }
 
 export const Input: FC<InputProps> = (props) => {
-  const { className, id, title, placeholder = '', inputType = 'text', value, setValue } = props;
+  const {
+    className,
+    id,
+    title,
+    placeholder = '',
+    inputType = 'text',
+    value,
+    setValue,
+    min = '0',
+    max = '0',
+    required = false
+  } = props;
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValue(evt.target.value);
@@ -21,7 +35,17 @@ export const Input: FC<InputProps> = (props) => {
   return (
     <div className={cn.InputContainer}>
       {title && <h3 className={cn.input__title}>{title}</h3>}
-      <input id={id} className={cn.input} type={inputType} placeholder={placeholder} value={value} onChange={handleInputChange} />
+      <input
+        required={required}
+        id={id}
+        className={cn.input}
+        type={inputType}
+        placeholder={placeholder}
+        value={value}
+        onChange={handleInputChange}
+        min={min}
+        max={max}
+      />
     </div>
   );
 };

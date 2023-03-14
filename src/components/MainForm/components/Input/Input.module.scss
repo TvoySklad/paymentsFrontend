@@ -30,6 +30,10 @@
     letter-spacing: -0.02em;
     color: #e4e4e4;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .input__title {
@@ -44,4 +48,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   // white-space: nowrap;
+
+  align-self: flex-start;
 }
