@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import cn from './ProlongingBlock.module.scss';
 import { Input } from '../Input/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, storeSlice } from '../../../../store/mainSlice/slice';
+import { getStoreValue } from '../../../../store/mainSlice/getStoreValue';
+import { getStore } from '../../../../store/mainSlice/getStore';
 
 interface ProlongingBlockProps {
   className?: string;
@@ -8,6 +12,10 @@ interface ProlongingBlockProps {
 
 export const ProlongingBlock: FC<ProlongingBlockProps> = (props) => {
   const { className } = props;
+
+  const test = useSelector(getStore);
+  const dispatch = useDispatch();
+
 
   return (
     <div className={cn.ProlongingBlock}>
