@@ -1,0 +1,94 @@
+.ProlongingBlock {
+  width: 100%;
+  padding: 16px;
+  background: #f7f7f7;
+  border-radius: 18px;
+  min-height: 168px;
+}
+
+.prolonging__subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+
+  opacity: 0.5;
+  margin: 12px 0 0 28px;
+}
+
+.prolonging__inputContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+// .nativeCheckbox {
+//   -webkit-appearance: none;
+//   appearance: none;
+//   /* For iOS < 15 to remove gradient background */
+//   background-color: #fff;
+//   /* Not removed via appearance */
+//   margin: 0;
+// }
+
+// .prolonging__checkboxContainer {
+//   font-weight: 500;
+//   font-size: 20px;
+//   line-height: 140%;
+//   letter-spacing: -0.02em;
+
+//   &:hover {
+//     cursor: pointer;
+//   }
+// }
+
+.prolonging__checkboxContainer {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 28px;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    // &:checked ~ .prolonging__checkboxCheckmark {
+    //   background-color: green;
+    // }
+
+    &:checked ~ .prolonging__checkboxCheckmark:after {
+      display: block;
+      opacity: 1;
+    }
+  }
+  
+  .prolonging__checkboxCheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      display: none;
+      opacity: 0;
+      left: 2px;
+      top: 2px;
+      width: 10px;
+      height: 10px;
+      background-color: #80b36c;
+      border-radius: 1px;
+      transition: opacity .2s ease-in-out;
+    }
+  }
+}

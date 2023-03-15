@@ -4,6 +4,7 @@ import { UserCredentials } from './components/UserCredentials/UserCredentials';
 import { AddressDropdown } from './components/AddressDropdown/AddressDropdown';
 import { BoxSizeBlock } from './components/BoxSizeBlock/BoxSizeBlock';
 import { RentalPeriodBlock } from './components/RentalPeriodBlock/RentalPeriodBlock';
+import { ProlongingBlock } from './components/ProlongingBlock/ProlongingBlock';
 
 interface MainFormProps {
   className?: string;
@@ -19,6 +20,7 @@ export const MainForm: FC<MainFormProps> = (props) => {
       <AddressDropdown />
       <BoxSizeBlock />
       <RentalPeriodBlock />
+      <ProlongingBlock />
     </div>
   );
 };

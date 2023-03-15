@@ -11,6 +11,7 @@ interface InputProps {
   min?: string;
   max?: string;
   required?: boolean;
+  disabled?: boolean;
   setValue: (value: string) => void;
 }
 
@@ -25,7 +26,8 @@ export const Input: FC<InputProps> = (props) => {
     setValue,
     min = '0',
     max = '0',
-    required = false
+    required = false,
+    disabled = false
   } = props;
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +47,7 @@ export const Input: FC<InputProps> = (props) => {
         onChange={handleInputChange}
         min={min}
         max={max}
+        disabled={disabled}
       />
     </div>
   );

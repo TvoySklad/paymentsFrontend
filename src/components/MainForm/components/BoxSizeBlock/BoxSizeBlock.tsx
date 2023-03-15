@@ -14,7 +14,7 @@ export const BoxSizeBlock: FC<BoxSizeBlockProps> = (props) => {
       <h3 className={cn.boxSize__title}>Размер бокса*</h3>
       <div className={cn.boxSizeItemsContainer}>
         <BoxSizeItem additionalSizes={['1']} mainSize='1' />
-        <BoxSizeItem additionalSizes={['1']} mainSize='1' />
+        <BoxSizeItem additionalSizes={['1']} mainSize='1' selected />
         <BoxSizeItem additionalSizes={['1']} mainSize='1' />
         <BoxSizeItem additionalSizes={['1']} mainSize='1' />
         <BoxSizeItem additionalSizes={['1']} mainSize='1' />

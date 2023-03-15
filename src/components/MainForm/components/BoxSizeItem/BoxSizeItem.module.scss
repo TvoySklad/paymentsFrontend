@@ -5,9 +5,11 @@
   margin-top: 12px;
   border: 1px solid #e4e4e4;
   border-radius: 12px;
-
   display: flex;
-  // justify-content: space-between;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .selected {

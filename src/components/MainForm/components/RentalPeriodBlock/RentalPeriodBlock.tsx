@@ -16,7 +16,7 @@ export const RentalPeriodBlock: FC<RentalPeriodBlockProps> = (props) => {
         <RentalPeriodItem id='1' text='1 месяц' />
         <RentalPeriodItem id='3' text='3 месяца (-10%)' />
         <RentalPeriodItem id='6' text='6 месяцев (-15%)' />
-        <RentalPeriodItem id='12' text='12 месяцев (-20%)' />
+        <RentalPeriodItem id='12' text='12 месяцев (-20%)' selected />
       </div>
     </div>
   );
