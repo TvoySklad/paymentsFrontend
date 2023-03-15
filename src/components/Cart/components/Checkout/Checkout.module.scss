@@ -1,0 +1,176 @@
+.Checkout {
+  padding: 16px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+}
+
+.promoContainer {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+
+.promocodeBtn {
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.couponeBtn {
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  text-decoration-line: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.summaryContainer {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+
+.summaryBlock {
+  display: flex;
+  align-items: center;
+}
+
+.summaryBlock__title {
+  width: 80px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  /* identical to box height, or 20px */
+
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}
+
+.summaryBlock__value {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  /* identical to box height, or 20px */
+
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}
+
+.payContainer {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+
+.totalSum {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.totalSum__title {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  opacity: 0.6;
+}
+
+.totalSum__value {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+}
+
+.payButton {
+  width: 136px;
+  height: 50px;
+  border: none;
+  background-color: #80b36c;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+
+  cursor: pointer;
+  transition: scale 0.1s linear;
+  &:active {
+    scale: 1.05;
+  }
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.subscription {
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+
+.subscriptionButton {
+  border: none;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 110%;
+  /* or 15px */
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #142eff;
+  cursor: pointer;
+  transition: scale 0.1s linear;
+  &:active {
+    scale: 1.05;
+  }
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.agreement {
+  padding: 16px 0;
+}
+
+.agreement__text {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 140%;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}

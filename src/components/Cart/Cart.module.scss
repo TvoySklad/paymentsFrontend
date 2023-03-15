@@ -1,6 +1,17 @@
 .Cart {
   background-color: #e6e7eb;
-  flex: 1;
+  flex: 0.95;
   min-height: 100%;
   border-radius: 18px;
+  box-sizing: border-box;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart__summaryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }

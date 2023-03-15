@@ -1,0 +1,86 @@
+.RentalOptions {
+  padding: 16px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 186px;
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+}
+
+.rentalOptions__title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.rentalOptions__address {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+  display: flex;
+}
+
+.rentalOptions__addressTitle {
+  display: block;
+  width: 120px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}
+
+.rentalOptions__addressValue {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+}
+
+.rentalOptions__size {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+  display: flex;
+}
+
+.rentalOptions__sizeTitle {
+  display: block;
+  width: 120px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}
+
+.rentalOptions__sizeValue {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+}
+.rentalOptions__period {
+  padding-bottom: 12px;
+  // border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+  display: flex;
+}
+
+.rentalOptions__periodTitle {
+  display: block;
+  width: 120px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  opacity: 0.4;
+}
+
+.rentalOptions__periodValue {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+}

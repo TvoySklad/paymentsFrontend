@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import cn from './Cart.module.scss';
+import { RentalOptions } from './components/RentalOptions/RentalOptions';
+import { ProlongOptions } from './components/ProlongOptions/ProlongOptions';
+import { Checkout } from './components/Checkout/Checkout';
 
 interface CartProps {
   className?: string;
@@ -8,5 +11,13 @@ interface CartProps {
 export const Cart: FC<CartProps> = (props) => {
   const { className } = props;
 
-  return <div className={cn.Cart}></div>;
+  return (
+    <div className={cn.Cart}>
+      <div className={cn.cart__summaryInfo}>
+        <RentalOptions />
+        <ProlongOptions />
+      </div>
+      <Checkout />
+    </div>
+  );
 };

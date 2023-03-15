@@ -9,14 +9,10 @@ interface HeaderProps {
 export const Header: FC<HeaderProps> = (props) => {
   const { className } = props;
 
-  const backToMain = () => {
-    window.location.replace('https://tvoysklad.com');
-  }
-
   return (
     <section className={cn.Header}>
       <img src={logo} alt='tvoy sclad logo' className={cn.header__logo} />
-      <button type='button' className={cn.header__backButton} onClick={backToMain}>Вернуться на главную</button>
+      <a href='https://tvoysklad.com' className={cn.header__backButton}>Вернуться на главную</a>
     </section>
   );
 };
