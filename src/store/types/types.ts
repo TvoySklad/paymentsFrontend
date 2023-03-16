@@ -1,3 +1,13 @@
 export interface StoreSchema {
-  value: number;
+  userName: string;
+  userPhone: string;
+  userEmail: string;
+  city: string;
+  address: string;
+  addressId: string;
+  boxSize: string;
+  rentalPeriod: string;
+  prolongation: boolean;
+  prolongContract: string;
+  prolongBoxNumber: string;
 }

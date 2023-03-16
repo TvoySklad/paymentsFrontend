@@ -1,23 +1,36 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import cn from './UserCredentials.module.scss';
 import { Input } from '../Input/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../../../store/mainSlice/slice';
+import { getStore } from '../../../../store/mainSlice/getStore';
 
 interface UserCredentialsProps {
   className?: string;
 }
 
 export const UserCredentials: FC<UserCredentialsProps> = (props) => {
-  const { className } = props;
-  const [nameValue, setNameValue] = useState('');
-  const [telValue, setTelValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
+  const dispatch = useDispatch();
+  const store = useSelector(getStore);
+
+  const setNameValue = (value: string) => {
+    dispatch(actions.setUserName(value));
+  };
+
+  const setPhoneValue = (value: string) => {
+    dispatch(actions.setUserPhone(value));
+  };
+
+  const setEmailValue = (value: string) => {
+    dispatch(actions.setUserEmail(value));
+  };
 
   return (
     <div className={cn.UserCredentials}>
       <Input
         id='name'
         title='ФИО*'
-        value={nameValue}
+        value={store.userName}
         setValue={setNameValue}
         inputType='text'
         min='3'
@@ -27,8 +40,8 @@ export const UserCredentials: FC<UserCredentialsProps> = (props) => {
       <Input
         id='tel'
         title='Номер телефона*'
-        value={telValue}
-        setValue={setTelValue}
+        value={store.userPhone}
+        setValue={setPhoneValue}
         inputType='email'
         min='5'
         required={true}
@@ -37,7 +50,7 @@ export const UserCredentials: FC<UserCredentialsProps> = (props) => {
       <Input
         id='email'
         title='Электронная почта (если есть)*'
-        value={emailValue}
+        value={store.userEmail}
         setValue={setEmailValue}
         inputType='tel'
         placeholder='example@mail.ru'
