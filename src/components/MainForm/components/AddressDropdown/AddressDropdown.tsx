@@ -21,6 +21,7 @@ export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
   };
 
   const setAddress = (evt: any) => {
+    dispatch(actions.resetStore());
     dispatch(actions.setCity(evt.target.dataset.city));
     dispatch(actions.setAddress(evt.target.innerText));
     dispatch(actions.setAddressId(evt.target.id));
@@ -51,7 +52,7 @@ export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
       <div className={[cn.dropdownMenu, isOpen ? cn.dropdownOpen : ''].join(' ')}>
         <div className={cn.novorossBlock}>
           <h4 className={cn.dropdown__title}>Новороссийск</h4>
-          <span id='M75A' className={cn.dropdown__item} onClick={setAddress} data-city={'Новороссийск'}>Мысхакское Шоссе, 75А</span>
+          <span id='M75' className={cn.dropdown__item} onClick={setAddress} data-city={'Новороссийск'}>Мысхакское Шоссе, 75А</span>
           <span id='D211' className={cn.dropdown__item} onClick={setAddress} data-city={'Новороссийск'}>Пр. Дзержинского, 211/2</span>
         </div>
         <div className={cn.kurskBlock}>

@@ -6,8 +6,15 @@ export interface StoreSchema {
   address: string;
   addressId: string;
   boxSize: string;
+  boxSizeIndex: number;
   rentalPeriod: string;
+  rentalPeriodIndex: number;
   prolongation: boolean;
   prolongContract: string;
   prolongBoxNumber: string;
+  promo: string;
+  promoActivated: boolean;
+  promoSum: number;
+  totalSum: number;
+  toPaySum: number;
 }
