@@ -44,6 +44,7 @@ export const M75 = [
 export const D211 = [
   {
     name: '1,5м²',
+    additionalText: 'Антресоль',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1350', total: '1350' },
@@ -54,6 +55,7 @@ export const D211 = [
   },
   {
     name: '1,5м²',
+    additionalText: 'Бокс',
     additionalSizes: ['1.5м²', '3м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1650', total: '1650' },

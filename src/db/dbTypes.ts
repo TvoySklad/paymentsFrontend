@@ -10,4 +10,5 @@ export interface SizeSchema {
   name: string;
   additionalSizes: string[];
   periods: PeriodsSchema;
+  additionalText?: string;
 }

@@ -28,26 +28,6 @@
   }
 }
 
-// .nativeCheckbox {
-//   -webkit-appearance: none;
-//   appearance: none;
-//   /* For iOS < 15 to remove gradient background */
-//   background-color: #fff;
-//   /* Not removed via appearance */
-//   margin: 0;
-// }
-
-// .prolonging__checkboxContainer {
-//   font-weight: 500;
-//   font-size: 20px;
-//   line-height: 140%;
-//   letter-spacing: -0.02em;
-
-//   &:hover {
-//     cursor: pointer;
-//   }
-// }
-
 .prolonging__checkboxContainer {
   display: inline-block;
   vertical-align: middle;
@@ -62,10 +42,6 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-
-    // &:checked ~ .prolonging__checkboxCheckmark {
-    //   background-color: green;
-    // }
 
     &:checked ~ .prolonging__checkboxCheckmark:after {
       display: block;
