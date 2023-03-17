@@ -20,6 +20,12 @@
   display: flex;
   gap: 12px;
   margin-top: 24px;
+
+  @media screen and (max-width: 480px) {
+    & {
+      flex-direction: column;
+    }
+  }
 }
 
 // .nativeCheckbox {

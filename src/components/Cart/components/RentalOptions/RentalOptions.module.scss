@@ -21,6 +21,11 @@
   padding-bottom: 12px;
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
   display: flex;
+  @media screen and (max-width: 1023px) {
+    & {
+      justify-content: space-between;
+    }
+  }
 }
 
 .rentalOptions__addressTitle {
@@ -38,12 +43,23 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: -0.02em;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      text-align: right;
+    }
+  }
 }
 
 .rentalOptions__size {
   padding-bottom: 12px;
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
   display: flex;
+  @media screen and (max-width: 620px) {
+    & {
+      justify-content: space-between;
+    }
+  }
 }
 
 .rentalOptions__sizeTitle {
@@ -61,11 +77,22 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: -0.02em;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      text-align: right;
+    }
+  }
 }
 .rentalOptions__period {
   padding-bottom: 12px;
   // border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
   display: flex;
+  @media screen and (max-width: 620px) {
+    & {
+      justify-content: space-between;
+    }
+  }
 }
 
 .rentalOptions__periodTitle {
@@ -83,4 +110,10 @@
   font-size: 14px;
   line-height: 140%;
   letter-spacing: -0.02em;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      text-align: right;
+    }
+  }
 }

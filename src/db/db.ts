@@ -1,7 +1,7 @@
 export const M75 = [
   {
     name: 'XS',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['3м²', '9м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '3000', total: '3000' },
       { period: 3, name: '3 месяца (-10%)', price: '2700', total: '8100' },
@@ -11,7 +11,7 @@ export const M75 = [
   },
   {
     name: 'S',
-    additionalSizes: ['5м²', '13м²'],
+    additionalSizes: ['5м²', '13м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '4000', total: '4000' },
       { period: 3, name: '3 месяца (-10%)', price: '3600', total: '10800' },
@@ -21,7 +21,7 @@ export const M75 = [
   },
   {
     name: 'M',
-    additionalSizes: ['10м²', '27м²'],
+    additionalSizes: ['10м²', '27м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '6000', total: '6000' },
       { period: 3, name: '3 месяца (-10%)', price: '5400', total: '16200' },
@@ -31,7 +31,7 @@ export const M75 = [
   },
   {
     name: 'L',
-    additionalSizes: ['15м²', '38м²'],
+    additionalSizes: ['15м²', '38м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '8000', total: '8000' },
       { period: 3, name: '3 месяца (-10%)', price: '7200', total: '21600' },
@@ -43,8 +43,8 @@ export const M75 = [
 
 export const D211 = [
   {
-    name: '1,5м² Антресоль',
-    additionalSizes: ['3м²', '9м²'],
+    name: '1,5м²',
+    additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1350', total: '1350' },
       { period: 3, name: '3 месяца (-10%)', price: '1215', total: '3645' },
@@ -53,8 +53,8 @@ export const D211 = [
     ],
   },
   {
-    name: '1,5м² Бокс',
-    additionalSizes: ['3м²', '9м²'],
+    name: '1,5м²',
+    additionalSizes: ['1.5м²', '3м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1650', total: '1650' },
       { period: 3, name: '3 месяца (-10%)', price: '1485', total: '4455' },
@@ -64,7 +64,7 @@ export const D211 = [
   },
   {
     name: '3м²',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['3м²', '6м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '2700', total: '2700' },
       { period: 3, name: '3 месяца (-10%)', price: '2430', total: '7290' },
@@ -74,7 +74,7 @@ export const D211 = [
   },
   {
     name: '3м²',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['3м²', '9м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '3000', total: '3000' },
       { period: 3, name: '3 месяца (-10%)', price: '2700', total: '8100' },
@@ -84,7 +84,7 @@ export const D211 = [
   },
   {
     name: '5м²',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['5м²', '10м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '4000', total: '4000' },
       { period: 3, name: '3 месяца (-10%)', price: '3600', total: '10800' },
@@ -94,7 +94,7 @@ export const D211 = [
   },
   {
     name: '10м²',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['10м²', '30м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '6000', total: '6000' },
       { period: 3, name: '3 месяца (-10%)', price: '5400', total: '16200' },
@@ -104,7 +104,7 @@ export const D211 = [
   },
   {
     name: '15м²',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['15м²', '45м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '9000', total: '9000' },
       { period: 3, name: '3 месяца (-10%)', price: '8100', total: '24300' },
@@ -117,7 +117,7 @@ export const D211 = [
 export const A13 = [
   {
     name: 'XXS',
-    additionalSizes: ['3м²', '9м²'],
+    additionalSizes: ['1м²', '1м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '650', total: '650' },
       { period: 3, name: '3 месяца (-10%)', price: '585', total: '1755' },
@@ -127,7 +127,7 @@ export const A13 = [
   },
   {
     name: 'XS',
-    additionalSizes: ['5м²', '13м²'],
+    additionalSizes: ['3м²', '8м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1950', total: '1950' },
       { period: 3, name: '3 месяца (-10%)', price: '1755', total: '5265' },
@@ -137,7 +137,7 @@ export const A13 = [
   },
   {
     name: 'S',
-    additionalSizes: ['10м²', '27м²'],
+    additionalSizes: ['5м²', '13м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '3250', total: '3250' },
       { period: 3, name: '3 месяца (-10%)', price: '2925', total: '8775' },
@@ -147,7 +147,7 @@ export const A13 = [
   },
   {
     name: 'M',
-    additionalSizes: ['15м²', '38м²'],
+    additionalSizes: ['10м²', '27м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '5950', total: '5950' },
       { period: 3, name: '3 месяца (-10%)', price: '5400', total: '16200' },

@@ -49,7 +49,7 @@ export const UserCredentials: FC<UserCredentialsProps> = (props) => {
       />
       <Input
         id='email'
-        title='Электронная почта (если есть)*'
+        title='Электронная почта (если есть)'
         value={store.userEmail}
         setValue={setEmailValue}
         inputType='tel'

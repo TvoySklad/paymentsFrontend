@@ -21,6 +21,12 @@
   padding-bottom: 12px;
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
   display: flex;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      justify-content: space-between;
+    }
+  }
 }
 
 .prolongOptions__contractTitle {
@@ -44,6 +50,12 @@
   padding-bottom: 12px;
   // border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
   display: flex;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      justify-content: space-between;
+    }
+  }
 }
 
 .prolongOptions__boxNumberTitle {

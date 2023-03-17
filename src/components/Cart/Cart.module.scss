@@ -9,10 +9,28 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      flex-direction: row;
+    }
+  }
+
+  @media screen and (max-width: 620px) {
+    & {
+      flex-direction: column;
+    }
+  }
 }
 
 .cart__summaryInfo {
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      flex-grow: 1;
+    }
+  }
 }

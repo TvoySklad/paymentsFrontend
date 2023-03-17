@@ -5,7 +5,7 @@ import { actions } from '../../../../store/mainSlice/slice';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { A13, D211, M75 } from '../../../../db/M75';
+import { A13, D211, M75 } from '../../../../db/db';
 
 interface BoxSizeBlockProps {
   className?: string;

@@ -6,6 +6,12 @@
   width: 100%;
   background: #fff;
   border-radius: 18px;
+
+  @media screen and (max-width: 1023px) {
+    & {
+      flex-grow: 2;
+    }
+  }
 }
 
 .promoContainer {

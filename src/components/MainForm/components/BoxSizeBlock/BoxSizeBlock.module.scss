@@ -10,6 +10,17 @@
   gap: 12px;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 620px) {
+    & {
+      gap: 8px;
+    }
+  }
+  @media screen and (max-width: 380px) {
+    & {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
 }
 
 .boxSize__title {
