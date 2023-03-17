@@ -1,9 +1,10 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../../store/mainSlice/slice';
 import { A13, D211, M75 } from '../../../../db/db';
+import { PromoModal } from '../PromoModal/PromoModal';
 
 interface CheckoutProps {
   className?: string;
@@ -13,6 +14,9 @@ export const Checkout: FC<CheckoutProps> = (props) => {
   const { className } = props;
   const store = useSelector(getStore);
   const dispatch = useDispatch();
+
+  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
+  // const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const mainStorage = useMemo(() => {
     switch (store.addressId) {
@@ -46,7 +50,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       return totalSum - store.promoSum;
     }
     return 0;
-  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.boxSizeIndex]);
+  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.boxSizeIndex, store.promoSum]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
@@ -85,11 +89,15 @@ export const Checkout: FC<CheckoutProps> = (props) => {
     store.prolongation,
   ]);
 
+  const handlePromoModalOpen = useCallback(() => {
+    setIsPromoModalOpen(true);
+  }, [isPromoModalOpen]);
+
   return (
     <div className={cn.Checkout}>
       <div className={cn.promoContainer}>
-        <button className={cn.promocodeBtn}>Ввести промокод</button>
-        <button className={cn.couponeBtn}>Указать купон</button>
+        <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>Ввести промокод</button>
+        {/* <button className={cn.couponeBtn}>Указать купон</button> */}
       </div>
       <div className={cn.summaryContainer}>
         <div className={cn.summaryBlock}>
@@ -124,6 +132,8 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           конфиденциальности.
         </a>
       </div>
+        {isPromoModalOpen && <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />}
+        {/* {<PromoModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />} */}
     </div>
   );
 };
