@@ -38,7 +38,7 @@ export const BoxSizeItem: FC<BoxSizeItemProps> = (props) => {
       </div>
       <div className={cn.additionalSizesConationer}>
         {additionalSizes.map((item) => (
-          <span className={cn.additionalSizeItem}>{item}</span>
+          <span className={cn.additionalSizeItem} key={item}>{item}</span>
         ))}
       </div>
     </div>

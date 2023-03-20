@@ -38,6 +38,7 @@ export const BoxSizeBlock: FC<BoxSizeBlockProps> = (props) => {
               additionalText={item.additionalText || ''}
               mainSize={item.name}
               index={index}
+              key={item.periods[0].total}
             />
           );
         })}

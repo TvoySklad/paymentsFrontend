@@ -35,16 +35,12 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
         handleModalClose();
+      } else if (evt.key === 'Enter') {
+        checkPromo();
       }
     },
     [handleModalClose]
   );
-
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     setIsMounted(true);
-  //   }
-  // }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -71,7 +67,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     }
     dispatch(actions.setPromoActivated(false));
     dispatch(actions.setPromoSum(null));
-    setError('No such promo sorry :(');
+    setError('Такого промокода не существует');
   };
 
   return (
@@ -80,8 +76,9 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     >
       <div className={cn.overlay} onClick={handleModalClose}>
         <div className={cn.content} onClick={onContentClick}>
+          <h5 className={cn.promoModal__title}>Введите промокод</h5>
           <Input id={'promo'} value={store.promo} setValue={setPromoValue} />
-          <button className={cn.submitPromoButton} onClick={checkPromo}>
+          <button className={cn.submitPromoButton} onClick={checkPromo} disabled={store.promo.length < 4}>
             Применить
           </button>
           <span className={cn.error}>{error}</span>

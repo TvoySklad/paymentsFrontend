@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../../store/mainSlice/slice';
 import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
+import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 interface CheckoutProps {
   className?: string;
@@ -47,10 +48,20 @@ export const Checkout: FC<CheckoutProps> = (props) => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      return totalSum - store.promoSum;
+      if (store.promoSum < totalSum) {
+        return totalSum - store.promoSum;
+      }
+      return totalSum;
     }
     return 0;
-  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.boxSizeIndex, store.promoSum]);
+  }, [
+    totalSum,
+    store.address,
+    store.boxSize,
+    store.rentalPeriod,
+    store.boxSizeIndex,
+    store.promoSum,
+  ]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
@@ -76,7 +87,11 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       );
     }
     return (
-      store.address.length > 0 && store.boxSize.length > 0 && store.rentalPeriod.length > 0 && store.userName.length > 0 && store.userPhone.length > 0
+      store.address.length > 0 &&
+      store.boxSize.length > 0 &&
+      store.rentalPeriod.length > 0 &&
+      store.userName.length > 0 &&
+      store.userPhone.length > 0
     );
   }, [
     store.prolongContract,
@@ -90,13 +105,16 @@ export const Checkout: FC<CheckoutProps> = (props) => {
   ]);
 
   const handlePromoModalOpen = useCallback(() => {
+    window.scrollTo(0, 0);
     setIsPromoModalOpen(true);
   }, [isPromoModalOpen]);
 
   return (
     <div className={cn.Checkout}>
       <div className={cn.promoContainer}>
-        <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>Ввести промокод</button>
+        <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>
+          Ввести промокод
+        </button>
         {/* <button className={cn.couponeBtn}>Указать купон</button> */}
       </div>
       <div className={cn.summaryContainer}>
@@ -120,10 +138,14 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           <span className={cn.totalSum__title}>Сумма к оплате</span>
           <span className={cn.totalSum__value}>{toPaySum} ₽</span>
         </div>
-        <button className={cn.payButton} disabled={!payButtonActive}>Оплатить</button>
+        <button className={cn.payButton} disabled={!payButtonActive}>
+          Оплатить
+        </button>
       </div>
       <div className={cn.subscription}>
-        <button className={cn.subscriptionButton} disabled={!payButtonActive} >Оформить подписку за 3600 ₽/мес</button>
+        <button className={cn.subscriptionButton} disabled={!payButtonActive}>
+          Оформить подписку за 3600 ₽/мес
+        </button>
       </div>
       <div className={cn.agreement}>
         <a className={cn.agreement__text} href='https://tvoysklad.com/privacy' target='blank'>
@@ -132,8 +154,8 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           конфиденциальности.
         </a>
       </div>
-        {isPromoModalOpen && <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />}
-        {/* {<PromoModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />} */}
+      {isPromoModalOpen && <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />}
+      {/* {<PromoModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />} */}
     </div>
   );
 };
