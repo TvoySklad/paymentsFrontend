@@ -31,28 +31,6 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     }, 300);
   }, [setIsOpen]);
 
-  const onKeyDown = useCallback(
-    (evt: KeyboardEvent) => {
-      if (evt.key === 'Escape') {
-        handleModalClose();
-      } else if (evt.key === 'Enter') {
-        checkPromo();
-      }
-    },
-    [handleModalClose]
-  );
-
-  useEffect(() => {
-    if (isOpen) {
-      window.addEventListener('keydown', onKeyDown);
-    }
-
-    return () => {
-      clearTimeout(closeTimer.current);
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [isOpen, onKeyDown]);
-
   const onContentClick = (evt: React.MouseEvent) => evt.stopPropagation();
 
   const checkPromo = () => {
@@ -70,6 +48,28 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     setError('Такого промокода не существует');
   };
 
+  const onKeyDown = useCallback(
+    (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        handleModalClose();
+      } else if (evt.key === 'Enter') {
+        checkPromo();
+      }
+    },
+    [handleModalClose, checkPromo]
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', onKeyDown);
+    }
+
+    return () => {
+      clearTimeout(closeTimer.current);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen, onKeyDown]);
+
   return (
     <div
       className={[cn.PromoModal, isOpen ? cn.isOpen : '', isClosing ? cn.isClosing : ''].join(' ')}
@@ -78,7 +78,11 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
         <div className={cn.content} onClick={onContentClick}>
           <h5 className={cn.promoModal__title}>Введите промокод</h5>
           <Input id={'promo'} value={store.promo} setValue={setPromoValue} />
-          <button className={cn.submitPromoButton} onClick={checkPromo} disabled={store.promo.length < 4}>
+          <button
+            className={cn.submitPromoButton}
+            onClick={checkPromo}
+            disabled={store.promo.length < 4}
+          >
             Применить
           </button>
           <span className={cn.error}>{error}</span>
