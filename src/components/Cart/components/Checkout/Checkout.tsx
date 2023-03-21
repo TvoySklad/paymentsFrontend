@@ -2,17 +2,16 @@ import { FC, useCallback, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../../../../store/mainSlice/slice';
 import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
-import { sortAndDeduplicateDiagnostics } from 'typescript';
+import { sendMessage } from '../../../../api/telegramAPI';
+import { formatTelegramMessage } from '../../../../utils/foramatters';
 
 interface CheckoutProps {
   className?: string;
 }
 
 export const Checkout: FC<CheckoutProps> = (props) => {
-  const { className } = props;
   const store = useSelector(getStore);
   const dispatch = useDispatch();
 
@@ -54,14 +53,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       return totalSum;
     }
     return 0;
-  }, [
-    totalSum,
-    store.address,
-    store.boxSize,
-    store.rentalPeriod,
-    store.boxSizeIndex,
-    store.promoSum,
-  ]);
+  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
@@ -72,7 +64,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       );
     }
     return 0;
-  }, [mainStorage, totalSum]);
+  }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
     if (store.prolongation) {
@@ -109,6 +101,11 @@ export const Checkout: FC<CheckoutProps> = (props) => {
     setIsPromoModalOpen(true);
   }, [isPromoModalOpen]);
 
+  const handleSendTelegram = () => {
+
+    sendMessage(formatTelegramMessage(store));
+  }
+
   return (
     <div className={cn.Checkout}>
       <div className={cn.promoContainer}>
@@ -138,7 +135,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           <span className={cn.totalSum__title}>Сумма к оплате</span>
           <span className={cn.totalSum__value}>{toPaySum} ₽</span>
         </div>
-        <button className={cn.payButton} disabled={!payButtonActive}>
+        <button className={cn.payButton} disabled={!payButtonActive} onClick={handleSendTelegram}>
           Оплатить
         </button>
       </div>
