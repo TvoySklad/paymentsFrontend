@@ -37,7 +37,7 @@ export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
   };
   return (
     <div className={cn.AddressDropdown}>
-      <h3 className={cn.address__title}>Адрес склада*</h3>
+      <h3 className={cn.address__title}>Адрес склада <span className={cn.red}>*</span></h3>
       <div
         className={[cn.address__dropdownMenu, isOpen ? cn.address__dropdownMenuOpen : ''].join(' ')}
         onClick={toggleDropdown}

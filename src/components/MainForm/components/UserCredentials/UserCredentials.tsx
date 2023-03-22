@@ -29,30 +29,34 @@ export const UserCredentials: FC<UserCredentialsProps> = (props) => {
     <div className={cn.UserCredentials}>
       <Input
         id='name'
-        title='ФИО*'
+        title='ФИО'
         value={store.userName}
         setValue={setNameValue}
         inputType='text'
         min='3'
         required={true}
         placeholder='Укажите ФИО'
-      />
+        requiredStar
+        />
       <Input
         id='tel'
-        title='Номер телефона*'
+        title='Номер телефона'
         value={store.userPhone}
         setValue={setPhoneValue}
-        inputType='email'
+        inputType='tel'
         min='5'
         required={true}
-        placeholder='+7 900 000 00 00'
+        masked={true}
+        mask='+7\ (999) 999 99 99'
+        requiredStar
+        placeholder='+ 7 911 777 55 33'
       />
       <Input
         id='email'
         title='Электронная почта (если есть)'
         value={store.userEmail}
         setValue={setEmailValue}
-        inputType='tel'
+        inputType='email'
         placeholder='example@mail.ru'
       />
     </div>

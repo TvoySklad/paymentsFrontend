@@ -15,6 +15,9 @@ export interface StoreSchema {
   promo: string;
   promoActivated: boolean;
   promoSum: number;
+  coupon: string;
+  couponActivated: boolean;
+  couponSum: number;
   totalSum: number;
   toPaySum: number;
 }

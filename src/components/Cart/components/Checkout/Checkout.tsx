@@ -4,6 +4,7 @@ import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
+import { CouponModal } from '../CouponModal/CouponModal';
 import { sendTelegramMessage } from '../../../../api/telegramAPI';
 import { formatTelegramMessage } from '../../../../utils/foramatters';
 
@@ -16,7 +17,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
   const dispatch = useDispatch();
 
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
-  // const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const mainStorage = useMemo(() => {
     switch (store.addressId) {
@@ -47,10 +48,10 @@ export const Checkout: FC<CheckoutProps> = (props) => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      if (store.promoSum < totalSum) {
-        return totalSum - store.promoSum;
+      if (store.promoSum < totalSum && store.couponSum < totalSum) {
+        return totalSum - store.promoSum - store.couponSum;
       }
-      return totalSum;
+      return totalSum < 0 ? 0 : totalSum;
     }
     return 0;
   }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum]);
@@ -101,6 +102,11 @@ export const Checkout: FC<CheckoutProps> = (props) => {
     setIsPromoModalOpen(true);
   }, []);
 
+  const handleCouponModalOpen = useCallback(() => {
+    window.scrollTo(0, 0);
+    setIsCouponModalOpen(true);
+  }, []);
+
   const handleSendManagerNotifications = () => {
     sendTelegramMessage(formatTelegramMessage(store));
   };
@@ -145,7 +151,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>
           Ввести промокод
         </button>
-        {/* <button className={cn.couponeBtn}>Указать купон</button> */}
+        <button className={cn.couponeBtn} onClick={handleCouponModalOpen}>Указать купон</button>
       </div>
       <div className={cn.summaryContainer}>
         <div className={cn.summaryBlock}>
@@ -160,6 +166,12 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           <div className={cn.summaryBlock}>
             <span className={cn.summaryBlock__title}>Промокод</span>
             <span className={cn.summaryBlock__value}>{store.promoSum.toString()}₽</span>
+          </div>
+        )}
+        {store.couponActivated && (
+          <div className={cn.summaryBlock}>
+            <span className={cn.summaryBlock__title}>Купон</span>
+            <span className={cn.summaryBlock__value}>{store.couponSum.toString()}₽</span>
           </div>
         )}
       </div>
@@ -185,7 +197,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         </a>
       </div>
       <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />
-      {/* {<PromoModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />} */}
+      <CouponModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />
     </div>
   );
 };
