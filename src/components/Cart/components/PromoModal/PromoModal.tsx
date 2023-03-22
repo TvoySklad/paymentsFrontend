@@ -29,11 +29,11 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
       setIsClosing(false);
       setIsOpen(false);
     }, 300);
-  }, [setIsOpen]);
+  }, [setIsOpen, setIsClosing]);
 
   const onContentClick = (evt: React.MouseEvent) => evt.stopPropagation();
 
-  const checkPromo = () => {
+  const checkPromo = useCallback(() => {
     const match = promoList.find((item) => item.name === store.promo);
     console.log(match);
     if (match) {
@@ -46,7 +46,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     dispatch(actions.setPromoActivated(false));
     dispatch(actions.setPromoSum(null));
     setError('Такого промокода не существует');
-  };
+  }, [handleModalClose, store.promo, dispatch]);
 
   const onKeyDown = useCallback(
     (evt: KeyboardEvent) => {

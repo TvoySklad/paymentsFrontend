@@ -4,7 +4,7 @@ import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
-import { sendMessage } from '../../../../api/telegramAPI';
+import { sendTelegramMessage } from '../../../../api/telegramAPI';
 import { formatTelegramMessage } from '../../../../utils/foramatters';
 
 interface CheckoutProps {
@@ -99,11 +99,44 @@ export const Checkout: FC<CheckoutProps> = (props) => {
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
     setIsPromoModalOpen(true);
-  }, [isPromoModalOpen]);
+  }, []);
 
-  const handleSendTelegram = () => {
+  const handleSendManagerNotifications = () => {
+    sendTelegramMessage(formatTelegramMessage(store));
+  };
 
-    sendMessage(formatTelegramMessage(store));
+  function pay() {
+    //@ts-ignore
+    var widget = new cp.CloudPayments({
+      language: 'ru-RU',
+    });
+    widget.pay(
+      'auth', // или 'charge'
+      {
+        //options
+        publicId: 'test_api_00000000000000000000002', //id из личного кабинета
+        description: 'Оплата склада', //назначение
+        amount: toPaySum, //сумма
+        currency: 'RUB', //валюта
+        accountId: '', //идентификатор плательщика (необязательно)
+        invoiceId: '', //номер заказа  (необязательно)
+        skin: 'modern', //дизайн виджета (необязательно)
+        autoClose: 3,
+      },
+      {
+        onSuccess: function (options: any) {
+          handleSendManagerNotifications();
+        },
+        onFail: function (reason: any, options: any) {
+          console.log('payment fail');
+          
+        },
+        onComplete: function (paymentResult: any, options: any) {
+          //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+          //например вызов вашей аналитики Facebook Pixel
+        },
+      }
+    );
   }
 
   return (
@@ -135,7 +168,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           <span className={cn.totalSum__title}>Сумма к оплате</span>
           <span className={cn.totalSum__value}>{toPaySum} ₽</span>
         </div>
-        <button className={cn.payButton} disabled={!payButtonActive} onClick={handleSendTelegram}>
+        <button className={cn.payButton} disabled={!payButtonActive} onClick={pay}>
           Оплатить
         </button>
       </div>
@@ -151,7 +184,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           конфиденциальности.
         </a>
       </div>
-      {isPromoModalOpen && <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />}
+      <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />
       {/* {<PromoModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />} */}
     </div>
   );
