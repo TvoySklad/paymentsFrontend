@@ -1,6 +1,6 @@
 import { StoreSchema } from '../store/types/types';
 
-export const formatTelegramMessage = (data: StoreSchema) => {
+export const formatNotificationMessage = (data: StoreSchema) => {
   const result = (
     `Name: ${data.userName}, 
     Tel: ${data.userPhone} 
@@ -19,7 +19,8 @@ export const formatTelegramMessage = (data: StoreSchema) => {
   } 
     PrevBox: ${data.prolongBoxNumber || 'no-prolong'} 
     Promocode: ${
-    data.promoActivated ? data.promoSum + data.promo : 'no-promo'
-  }`);
+      data.promoActivated ? data.promoSum + data.promo : 'no-promo'}
+    PaymentType: ${data.paymentType} 
+  `);
   return result;
 };

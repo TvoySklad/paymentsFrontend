@@ -20,4 +20,5 @@ export interface StoreSchema {
   couponSum: number;
   totalSum: number;
   toPaySum: number;
+  paymentType: string;
 }

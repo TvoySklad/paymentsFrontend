@@ -23,6 +23,7 @@ const initialState: StoreSchema = {
   couponSum: 0,
   totalSum: 0,
   toPaySum: 0,
+  paymentType: ''
 };
 
 export const storeSlice = createSlice({
@@ -91,6 +92,9 @@ export const storeSlice = createSlice({
     },
     setToPaySum: (state, action) => {
       state.toPaySum = action.payload;
+    },
+    setPaymentType: (state, action) => {
+      state.paymentType = action.payload;
     },
     resetStore: (state) => {
       state.boxSize = '';

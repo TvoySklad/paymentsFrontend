@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
-import { sendTelegramMessage } from '../../../../api/telegramAPI';
-import { formatTelegramMessage } from '../../../../utils/foramatters';
+import { sendTelegramMessage, sendEmailNotification } from '../../../../api/notificationsAPI';
+import { formatNotificationMessage } from '../../../../utils/foramatters';
+import { actions } from '../../../../store/mainSlice/slice';
 
 interface CheckoutProps {
   className?: string;
@@ -108,14 +109,19 @@ export const Checkout: FC<CheckoutProps> = (props) => {
   }, []);
 
   const handleSendManagerNotifications = () => {
-    sendTelegramMessage(formatTelegramMessage(store));
+    sendTelegramMessage(formatNotificationMessage(store));
+    sendEmailNotification(formatNotificationMessage(store));
   };
 
   function pay() {
+    dispatch(actions.setPaymentType('Full'));
     //@ts-ignore
     var widget = new cp.CloudPayments({
       language: 'ru-RU',
     });
+    var data = {
+      data: formatNotificationMessage(store),
+    };
     widget.pay(
       'auth', // или 'charge'
       {
@@ -128,6 +134,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         invoiceId: '', //номер заказа  (необязательно)
         skin: 'modern', //дизайн виджета (необязательно)
         autoClose: 3,
+        data: data,
       },
       {
         onSuccess: function (options: any) {
@@ -135,12 +142,75 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         },
         onFail: function (reason: any, options: any) {
           console.log('payment fail');
-          
         },
         onComplete: function (paymentResult: any, options: any) {
           //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
           //например вызов вашей аналитики Facebook Pixel
         },
+      }
+    );
+  }
+
+  function payReccurent() {
+    dispatch(actions.setPaymentType('Reccurent'));
+    //@ts-ignore
+    var widget = new cp.CloudPayments();
+    var receipt = {
+      Items: [
+        //товарные позиции
+        {
+          label: 'Подписка на аренду склада', //наименование товара
+          price: 3600.0, //цена
+          quantity: 3.0, //количество
+          amount: 10800.0, //сумма
+          vat: 20, //ставка НДС
+          method: 0, // тег-1214 признак способа расчета - признак способа расчета
+          object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+        },
+      ],
+      taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
+      email: 'user@example.com', //e-mail покупателя, если нужно отправить письмо с чеком
+      phone: '', //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
+      isBso: false, //чек является бланком строгой отчетности
+      amounts: {
+        electronic: 10800.0, // Сумма оплаты электронными деньгами
+        advancePayment: 0.0, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
+        credit: 0.0, // Сумма постоплатой(в кредит) (2 знака после запятой)
+        provision: 0.0, // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
+      },
+    };
+
+    var data = {
+      data: formatNotificationMessage(store),
+    };
+    //@ts-ignore
+    data.CloudPayments = {
+      CustomerReceipt: receipt, //чек для первого платежа
+      recurrent: {
+        interval: 'Month',
+        period: 1,
+        customerReceipt: receipt, //чек для регулярных платежей
+      },
+    }; //создание ежемесячной подписки
+
+    widget.charge(
+      {
+        // options
+        publicId: 'test_api_00000000000000000000001', //id из личного кабинета
+        description: 'Подписка на аренду склада', //назначение
+        amount: 3600, //сумма
+        currency: 'RUB', //валюта
+        invoiceId: '', //номер заказа  (необязательно)
+        accountId: `${store.userPhone} ${Date.now()}`, //идентификатор плательщика (обязательно для создания подписки)
+        data: data,
+      },
+      function (options: any) {
+        // success
+        handleSendManagerNotifications();
+      },
+      function (reason: any, options: any) {
+        // fail
+        //действие при неуспешной оплате
       }
     );
   }
@@ -151,7 +221,9 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>
           Ввести промокод
         </button>
-        <button className={cn.couponeBtn} onClick={handleCouponModalOpen}>Указать купон</button>
+        <button className={cn.couponeBtn} onClick={handleCouponModalOpen}>
+          Указать купон
+        </button>
       </div>
       <div className={cn.summaryContainer}>
         <div className={cn.summaryBlock}>
@@ -185,7 +257,11 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         </button>
       </div>
       <div className={cn.subscription}>
-        <button className={cn.subscriptionButton} disabled={!payButtonActive}>
+        <button
+          className={cn.subscriptionButton}
+          disabled={!payButtonActive}
+          onClick={payReccurent}
+        >
           Оформить подписку за 3600 ₽/мес
         </button>
       </div>

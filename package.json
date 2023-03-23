@@ -4,6 +4,7 @@
   "homepage": "https://softlolx.github.io/payments-tvoysklad",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.10.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
