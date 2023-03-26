@@ -47,6 +47,14 @@ export const Checkout: FC<CheckoutProps> = (props) => {
     mainStorage,
   ]);
 
+  const subscriptionCost = useMemo(() => {
+    if (store.address && store.boxSize) {
+      return +mainStorage[+store.boxSizeIndex].subscriptionCost;
+    }
+
+    return null;
+  }, [store.address, store.boxSize, store.boxSizeIndex, mainStorage]);
+
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
       if (store.promoSum < totalSum && store.couponSum < totalSum) {
@@ -55,7 +63,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       return totalSum < 0 ? 0 : totalSum;
     }
     return 0;
-  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum]);
+  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.couponSum]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
@@ -160,9 +168,9 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         //товарные позиции
         {
           label: 'Подписка на аренду склада', //наименование товара
-          price: 3600.0, //цена
-          quantity: 3.0, //количество
-          amount: 10800.0, //сумма
+          price: subscriptionCost, //цена
+          quantity: 1.0, //количество
+          amount: subscriptionCost, //сумма
           vat: 20, //ставка НДС
           method: 0, // тег-1214 признак способа расчета - признак способа расчета
           object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
@@ -173,7 +181,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
       phone: '', //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
       isBso: false, //чек является бланком строгой отчетности
       amounts: {
-        electronic: 10800.0, // Сумма оплаты электронными деньгами
+        electronic: subscriptionCost, // Сумма оплаты электронными деньгами
         advancePayment: 0.0, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
         credit: 0.0, // Сумма постоплатой(в кредит) (2 знака после запятой)
         provision: 0.0, // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
@@ -198,7 +206,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
         // options
         publicId: 'test_api_00000000000000000000001', //id из личного кабинета
         description: 'Подписка на аренду склада', //назначение
-        amount: 3600, //сумма
+        amount: subscriptionCost, //сумма
         currency: 'RUB', //валюта
         invoiceId: '', //номер заказа  (необязательно)
         accountId: `${store.userPhone} ${Date.now()}`, //идентификатор плательщика (обязательно для создания подписки)
@@ -256,15 +264,16 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           Оплатить
         </button>
       </div>
-      <div className={cn.subscription}>
-        <button
-          className={cn.subscriptionButton}
-          disabled={!payButtonActive}
-          onClick={payReccurent}
-        >
-          Оформить подписку за 3600 ₽/мес
-        </button>
-      </div>
+      {subscriptionCost && (
+        <div className={cn.subscription}>
+          <button
+            className={cn.subscriptionButton}
+            onClick={payReccurent}
+          >
+            Оформить подписку за {subscriptionCost} ₽/мес
+          </button>
+        </div>
+      )}
       <div className={cn.agreement}>
         <a className={cn.agreement__text} href='https://tvoysklad.com/privacy' target='blank'>
           Нажимая оплатить или оформить подписку, я даю свое согласие с условиями Оферты, а также с

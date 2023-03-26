@@ -23,7 +23,8 @@ const initialState: StoreSchema = {
   couponSum: 0,
   totalSum: 0,
   toPaySum: 0,
-  paymentType: ''
+  paymentType: '',
+  subscriptionCost: 0
 };
 
 export const storeSlice = createSlice({
@@ -96,11 +97,15 @@ export const storeSlice = createSlice({
     setPaymentType: (state, action) => {
       state.paymentType = action.payload;
     },
+    setSubscriptionCost: (state, action) => {
+      state.subscriptionCost = action.payload;
+    },
     resetStore: (state) => {
       state.boxSize = '';
       state.boxSizeIndex = null;
       state.rentalPeriod = '';
       state.rentalPeriodIndex = null;
+      state.subscriptionCost = 0;
     },
   },
 });

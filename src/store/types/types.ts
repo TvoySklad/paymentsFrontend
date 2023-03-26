@@ -20,5 +20,6 @@ export interface StoreSchema {
   couponSum: number;
   totalSum: number;
   toPaySum: number;
+  subscriptionCost: number;
   paymentType: string;
 }
