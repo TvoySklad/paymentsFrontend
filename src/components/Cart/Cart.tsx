@@ -17,7 +17,7 @@ export const Cart: FC<CartProps> = (props) => {
     <div className={cn.Cart}>
       <div className={cn.cart__summaryInfo}>
         <RentalOptions />
-        {store.prolongation && <ProlongOptions />}
+        <ProlongOptions />
       </div>
       <Checkout />
     </div>

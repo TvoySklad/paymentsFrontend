@@ -9,7 +9,6 @@ export const formatNotificationMessage = (data: StoreSchema) => {
     Address: ${data.address} 
     BoxSize: ${data.boxSize} 
     Period: ${data.paymentType === 'Reccurent' ? 'Reccurent' : data.rentalPeriod} 
-    Prolongation: ${data.prolongation || 'false'} 
     Contract: ${data.prolongContract || 'no-prolong'} 
     PrevBox: ${data.prolongBoxNumber || 'no-prolong'} 
     Promocode: ${data.promoActivated ? data.promoSum + data.promo : 'no-promo'}

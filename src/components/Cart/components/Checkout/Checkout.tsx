@@ -73,18 +73,9 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (store.prolongation) {
-      return (
-        store.prolongContract.length > 0 &&
-        store.prolongBoxNumber.length > 0 &&
-        store.address.length > 0 &&
-        store.boxSize.length > 0 &&
-        store.rentalPeriod.length > 0 &&
-        store.userName.length > 0 &&
-        store.userPhone.length > 0
-      );
-    }
     return (
+      store.prolongContract.length > 0 &&
+      store.prolongBoxNumber.length > 0 &&
       store.address.length > 0 &&
       store.boxSize.length > 0 &&
       store.rentalPeriod.length > 0 &&
@@ -99,17 +90,25 @@ export const Checkout: FC = () => {
     store.rentalPeriod,
     store.userName,
     store.userPhone,
-    store.prolongation,
   ]);
 
   const subscriptionButtonActive = useMemo(() => {
     return (
+      store.prolongContract.length > 0 &&
+      store.prolongBoxNumber.length > 0 &&
       store.address.length > 0 &&
       store.boxSize.length > 0 &&
       store.userName.length > 0 &&
       store.userPhone.length > 0
     );
-  }, [store.address, store.boxSize, store.userName, store.userPhone]);
+  }, [
+    store.address.length,
+    store.boxSize.length,
+    store.prolongBoxNumber.length,
+    store.prolongContract.length,
+    store.userName.length,
+    store.userPhone.length,
+  ]);
 
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);

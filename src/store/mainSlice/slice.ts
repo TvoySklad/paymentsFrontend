@@ -12,7 +12,6 @@ const initialState: StoreSchema = {
   boxSizeIndex: null,
   rentalPeriod: '',
   rentalPeriodIndex: null,
-  prolongation: false,
   prolongContract: '',
   prolongBoxNumber: '',
   promo: '',
@@ -60,9 +59,6 @@ export const storeSlice = createSlice({
     },
     setRentalPeriodIndex: (state, action) => {
       state.rentalPeriodIndex = action.payload;
-    },
-    setProlongation: (state, action) => {
-      state.prolongation = action.payload;
     },
     setProlongContract: (state, action) => {
       state.prolongContract = action.payload;

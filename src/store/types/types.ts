@@ -9,7 +9,6 @@ export interface StoreSchema {
   boxSizeIndex: number;
   rentalPeriod: string;
   rentalPeriodIndex: number;
-  prolongation: boolean;
   prolongContract: string;
   prolongBoxNumber: string;
   promo: string;
