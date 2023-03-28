@@ -9,11 +9,7 @@ import { sendTelegramMessage, sendEmailNotification } from '../../../../api/noti
 import { formatNotificationMessage } from '../../../../utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
 
-interface CheckoutProps {
-  className?: string;
-}
-
-export const Checkout: FC<CheckoutProps> = (props) => {
+export const Checkout: FC = () => {
   const store = useSelector(getStore);
   const dispatch = useDispatch();
 
@@ -105,6 +101,15 @@ export const Checkout: FC<CheckoutProps> = (props) => {
     store.userPhone,
     store.prolongation,
   ]);
+
+  const subscriptionButtonActive = useMemo(() => {
+    return (
+      store.address.length > 0 &&
+      store.boxSize.length > 0 &&
+      store.userName.length > 0 &&
+      store.userPhone.length > 0
+    );
+  }, [store.address, store.boxSize, store.userName, store.userPhone]);
 
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
@@ -269,6 +274,7 @@ export const Checkout: FC<CheckoutProps> = (props) => {
           <button
             className={cn.subscriptionButton}
             onClick={payReccurent}
+            disabled={!subscriptionButtonActive}
           >
             Оформить подписку за {subscriptionCost} ₽/мес
           </button>

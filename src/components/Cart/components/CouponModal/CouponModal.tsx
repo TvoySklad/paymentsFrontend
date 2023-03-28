@@ -62,6 +62,7 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
   useEffect(() => {
     if (isOpen) {
       window.addEventListener('keydown', onKeyDown);
+      setError('');
     }
 
     return () => {
@@ -77,7 +78,7 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
       <div className={cn.overlay} onClick={handleModalClose}>
         <div className={cn.content} onClick={onContentClick}>
           <h5 className={cn.CouponModal__title}>Введите купон</h5>
-          <Input id={'Coupon'} value={store.coupon} setValue={setCouponValue} />
+          <Input id={'Coupon'} value={store.coupon} setValue={setCouponValue} placeholder='Купон' />
           <button
             className={cn.submitCouponButton}
             onClick={checkCoupon}

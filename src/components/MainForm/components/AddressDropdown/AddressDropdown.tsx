@@ -5,12 +5,7 @@ import { actions } from '../../../../store/mainSlice/slice';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 
-interface AddressDropdownProps {
-  className?: string;
-}
-
-export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
-  const { className } = props;
+export const AddressDropdown: FC = () => {
   const dispatch = useDispatch();
   const store = useSelector(getStore);
 
@@ -30,14 +25,20 @@ export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
 
   const getAddressText = () => {
     if (store.city === '') {
-      return <span className={cn.address__dropdownMenuText}>Выберите адрес склада</span>
+      return <span className={cn.address__dropdownMenuText}>Выберите адрес склада</span>;
     } else {
-      return <span className={[cn.address__dropdownMenuText, cn.address__selected].join(' ')}>{store.address}</span>
+      return (
+        <span className={[cn.address__dropdownMenuText, cn.address__selected].join(' ')}>
+          {store.address}
+        </span>
+      );
     }
   };
   return (
     <div className={cn.AddressDropdown}>
-      <h3 className={cn.address__title}>Адрес склада <span className={cn.red}>*</span></h3>
+      <h3 className={cn.address__title}>
+        Адрес склада <span className={cn.red}>*</span>
+      </h3>
       <div
         className={[cn.address__dropdownMenu, isOpen ? cn.address__dropdownMenuOpen : ''].join(' ')}
         onClick={toggleDropdown}
@@ -52,12 +53,28 @@ export const AddressDropdown: FC<AddressDropdownProps> = (props) => {
       <div className={[cn.dropdownMenu, isOpen ? cn.dropdownOpen : ''].join(' ')}>
         <div className={cn.novorossBlock}>
           <h4 className={cn.dropdown__title}>Новороссийск</h4>
-          <span id='M75' className={cn.dropdown__item} onClick={setAddress} data-city={'Новороссийск'}>Мысхакское Шоссе, 75А</span>
-          <span id='D211' className={cn.dropdown__item} onClick={setAddress} data-city={'Новороссийск'}>Пр. Дзержинского, 211/2</span>
+          <span
+            id='M75'
+            className={cn.dropdown__item}
+            onClick={setAddress}
+            data-city={'Новороссийск'}
+          >
+            Мысхакское Шоссе, 75А
+          </span>
+          <span
+            id='D211'
+            className={cn.dropdown__item}
+            onClick={setAddress}
+            data-city={'Новороссийск'}
+          >
+            Пр. Дзержинского, 211/2
+          </span>
         </div>
         <div className={cn.kurskBlock}>
           <h4 className={cn.dropdown__title}>Курск</h4>
-          <span id='A13' className={cn.dropdown__item} onClick={setAddress} data-city={'Курск'}>Александр Невского, 13, ТЦ  "Панорама"</span>
+          <span id='A13' className={cn.dropdown__item} onClick={setAddress} data-city={'Курск'}>
+            Александр Невского, 13, ТЦ "Панорама"
+          </span>
         </div>
       </div>
     </div>

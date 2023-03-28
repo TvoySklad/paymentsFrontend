@@ -5,14 +5,8 @@ import { getStore } from '../../../../store/mainSlice/getStore';
 
 import { A13, D211, M75 } from '../../../../db/db';
 import { useSelector } from 'react-redux';
-import { SizeSchema } from 'db/dbTypes';
 
-interface BoxSizeBlockProps {
-  className?: string;
-}
-
-export const BoxSizeBlock: FC<BoxSizeBlockProps> = (props) => {
-  
+export const BoxSizeBlock: FC = () => {
   const store = useSelector(getStore);
 
   const mainStorage = useMemo(() => {
@@ -28,14 +22,15 @@ export const BoxSizeBlock: FC<BoxSizeBlockProps> = (props) => {
 
   return (
     <div className={cn.BoxSizeBlock}>
-      <h3 className={cn.boxSize__title}>Размер бокса*</h3>
+      <h3 className={cn.boxSize__title}>
+        Размер бокса<span className={cn.red}>*</span>
+      </h3>
       <div className={cn.boxSizeItemsContainer}>
         {mainStorage.map((item, index) => {
           return (
             <BoxSizeItem
               additionalSizes={item.additionalSizes}
-              //@ts-ignore
-              additionalText={item.additionalText || ''}
+              additionalText={(item.additionalText && item.additionalText) || ''}
               mainSize={item.name}
               index={index}
               key={item.periods[0].total}

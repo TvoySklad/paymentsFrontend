@@ -5,11 +5,7 @@ import { getStore } from '../../../../store/mainSlice/getStore';
 import { useSelector } from 'react-redux';
 import { A13, D211, M75 } from '../../../../db/db';
 
-interface RentalPeriodBlockProps {
-  className?: string;
-}
-
-export const RentalPeriodBlock: FC<RentalPeriodBlockProps> = (props) => {
+export const RentalPeriodBlock: FC = () => {
   const store = useSelector(getStore);
 
   const mainStorage = useMemo(() => {
@@ -25,7 +21,7 @@ export const RentalPeriodBlock: FC<RentalPeriodBlockProps> = (props) => {
 
   return (
     <div className={cn.RentalPeriodBlock}>
-      <h3 className={cn.RentalPeriod__title}>Срок аренды*</h3>
+      <h3 className={cn.RentalPeriod__title}>Срок аренды<span className={cn.red}>*</span></h3>
       <div className={cn.RentalPeriodItemsContainer}>
         {mainStorage[0].periods.map((item, index) => <RentalPeriodItem index={index} text={item.name} key={item.price}/>)}
       </div>

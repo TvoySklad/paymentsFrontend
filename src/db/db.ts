@@ -1,4 +1,6 @@
-export const M75 = [
+import { AddressDataSchema } from "./dbTypes";
+
+export const M75: AddressDataSchema = [
   {
     name: 'XS',
     subscriptionCost: '2700',
@@ -45,7 +47,7 @@ export const M75 = [
   },
 ];
 
-export const D211 = [
+export const D211: AddressDataSchema = [
   {
     name: '1,5м²',
     additionalText: 'Антресоль',
@@ -127,7 +129,7 @@ export const D211 = [
   },
 ];
 
-export const A13 = [
+export const A13: AddressDataSchema = [
   {
     name: 'XXS',
     subscriptionCost: '585',

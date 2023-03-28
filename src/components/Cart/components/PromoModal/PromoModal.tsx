@@ -62,6 +62,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
   useEffect(() => {
     if (isOpen) {
       window.addEventListener('keydown', onKeyDown);
+      setError('');
     }
 
     return () => {
@@ -77,7 +78,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
       <div className={cn.overlay} onClick={handleModalClose}>
         <div className={cn.content} onClick={onContentClick}>
           <h5 className={cn.promoModal__title}>Введите промокод</h5>
-          <Input id={'promo'} value={store.promo} setValue={setPromoValue} />
+          <Input id={'promo'} value={store.promo} setValue={setPromoValue} placeholder='Промокод'/>
           <button
             className={cn.submitPromoButton}
             onClick={checkPromo}
