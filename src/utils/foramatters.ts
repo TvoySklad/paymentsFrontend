@@ -15,3 +15,8 @@ export const formatNotificationMessage = (data: StoreSchema) => {
   `;
   return result;
 };
+
+export const formatPaymentMessage = (data: StoreSchema) => {
+  const result = `Оплата бокса №${data.prolongBoxNumber} ${data.address}`;
+  return result;
+};

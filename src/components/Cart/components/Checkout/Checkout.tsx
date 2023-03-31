@@ -6,7 +6,7 @@ import { A13, D211, M75 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
 import { sendTelegramMessage, sendEmailNotification } from '../../../../api/notificationsAPI';
-import { formatNotificationMessage } from '../../../../utils/foramatters';
+import { formatNotificationMessage, formatPaymentMessage } from '../../../../utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
 
 export const Checkout: FC = () => {
@@ -132,14 +132,14 @@ export const Checkout: FC = () => {
       language: 'ru-RU',
     });
     var data = {
-      data: formatNotificationMessage(store),
+      data: JSON.stringify(formatNotificationMessage(store)),
     };
     widget.pay(
       'auth', // или 'charge'
       {
         //options
-        publicId: 'test_api_00000000000000000000002', //id из личного кабинета
-        description: 'Оплата склада', //назначение
+        publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
+        description: formatPaymentMessage(store), //назначение
         amount: toPaySum, //сумма
         currency: 'RUB', //валюта
         accountId: '', //идентификатор плательщика (необязательно)
@@ -147,6 +147,7 @@ export const Checkout: FC = () => {
         skin: 'modern', //дизайн виджета (необязательно)
         autoClose: 3,
         data: data,
+        email: store.userEmail || '',
       },
       {
         onSuccess: function (options: any) {
@@ -171,7 +172,7 @@ export const Checkout: FC = () => {
       Items: [
         //товарные позиции
         {
-          label: 'Подписка на аренду склада', //наименование товара
+          label: 'Подписка на аренду бокса', //наименование товара
           price: subscriptionCost, //цена
           quantity: 1.0, //количество
           amount: subscriptionCost, //сумма
@@ -208,13 +209,14 @@ export const Checkout: FC = () => {
     widget.charge(
       {
         // options
-        publicId: 'test_api_00000000000000000000001', //id из личного кабинета
+        publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
         description: 'Подписка на аренду склада', //назначение
         amount: subscriptionCost, //сумма
         currency: 'RUB', //валюта
         invoiceId: '', //номер заказа  (необязательно)
         accountId: `${store.userPhone} ${Date.now()}`, //идентификатор плательщика (обязательно для создания подписки)
         data: data,
+        email: store.userEmail || '',
       },
       function (options: any) {
         // success
