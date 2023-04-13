@@ -1,10 +1,11 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import cn from './PromoModal.module.scss';
-import { Input } from '../../../../components/MainForm/components/Input/Input';
-import { actions } from '../../../../store/mainSlice/slice';
+import { Input } from 'components/MainForm/components/Input/Input';
+import { actions } from 'store/mainSlice/slice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStore } from '../../../../store/mainSlice/getStore';
-import { promoList } from '../../../../db/promoList';
+import { getStore } from 'store/mainSlice/getStore';
+import { promoList } from 'db/promoList';
+
 interface PromoModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
@@ -29,24 +30,27 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
       setIsClosing(false);
       setIsOpen(false);
     }, 300);
-  }, [setIsOpen, setIsClosing]);
+  }, [closeTimer.current]);
 
   const onContentClick = (evt: React.MouseEvent) => evt.stopPropagation();
 
   const checkPromo = useCallback(() => {
-    const match = promoList.find((item) => item.name === store.promo);
-    console.log(match);
+    let match = promoList.find((item) => item.name === store.promo);
+    if (match.name === 'НОВОРОССИЙСК' && store.city !== 'Новороссийск') {
+      match = undefined;
+    }
     if (match) {
       dispatch(actions.setPromoActivated(true));
       dispatch(actions.setPromoSum(match.value));
       setError('');
+      setPromoValue('');
       handleModalClose();
       return;
     }
     dispatch(actions.setPromoActivated(false));
     dispatch(actions.setPromoSum(null));
     setError('Такого промокода не существует');
-  }, [handleModalClose, store.promo, dispatch]);
+  }, [handleModalClose, store.promo, dispatch, store.city]);
 
   const onKeyDown = useCallback(
     (evt: KeyboardEvent) => {
@@ -78,11 +82,11 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
       <div className={cn.overlay} onClick={handleModalClose}>
         <div className={cn.content} onClick={onContentClick}>
           <h5 className={cn.promoModal__title}>Введите промокод</h5>
-          <Input id={'promo'} value={store.promo} setValue={setPromoValue} placeholder='Промокод'/>
+          <Input id={'promo'} value={store.promo} setValue={setPromoValue} placeholder='Промокод' />
           <button
             className={cn.submitPromoButton}
             onClick={checkPromo}
-            disabled={store.promo.length < 4}
+            disabled={store.promo.length < 2}
           >
             Применить
           </button>

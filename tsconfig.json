@@ -6,10 +6,7 @@
     "target": "es5",
     "jsx": "react-jsx",
     "allowJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["./src/*"]
-    },
+    "baseUrl": "src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
@@ -19,5 +16,10 @@
       "module": "CommonJS"
     }
   },
-  "include": ["src", "global.d.ts"]
+  "include": ["src", "global.d.ts"],
+  "paths": {
+    "@app/*": [
+      "src/*"
+    ]
+  }
 }

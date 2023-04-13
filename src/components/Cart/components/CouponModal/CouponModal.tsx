@@ -4,7 +4,8 @@ import { Input } from '../../../../components/MainForm/components/Input/Input';
 import { actions } from '../../../../store/mainSlice/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStore } from '../../../../store/mainSlice/getStore';
-import { couponList } from '../../../../db/promoList';
+import { fetchCoupons, updateCoupon } from '../../../../services/couponsService';
+
 interface CouponModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
@@ -14,7 +15,7 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
   const { isOpen, setIsOpen } = props;
   const [isClosing, setIsClosing] = useState(false);
   const [error, setError] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const store = useSelector(getStore);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -25,6 +26,7 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
 
   const handleModalClose = useCallback(() => {
     setIsClosing(true);
+
     closeTimer.current = setTimeout(() => {
       setIsClosing(false);
       setIsOpen(false);
@@ -33,20 +35,34 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
 
   const onContentClick = (evt: React.MouseEvent) => evt.stopPropagation();
 
-  const checkCoupon = useCallback(() => {
-    const match = couponList.find((item) => item.name === store.coupon);
-    console.log(match);
+  const checkCoupon = useCallback(async () => {
+    if (!!store.fetchedCoupons || store.fetchedCoupons.length === 0) {
+      try {
+        await dispatch(fetchCoupons);
+      } catch {
+        setError('Произошла ошибка - перезагрузите страницу и попробуйте еще раз');
+        return;
+      }
+    }
+    const match = store.fetchedCoupons.find((item) => item.value === store.coupon);
     if (match) {
+      if (!!match.used) {
+        setError('Этот купон уже был использован');
+        return;
+      }
+      dispatch(actions.setCouponId(match.id));
       dispatch(actions.setCouponActivated(true));
-      dispatch(actions.setCouponSum(match.value));
+      dispatch(actions.setCouponActivatedValue(match.value));
+      dispatch(actions.setCouponSum(+match.sum));
       setError('');
       handleModalClose();
       return;
     }
     dispatch(actions.setCouponActivated(false));
+    dispatch(actions.setCouponActivatedValue(''));
     dispatch(actions.setCouponSum(null));
     setError('Такого купона не существует');
-  }, [handleModalClose, store.coupon, dispatch]);
+  }, [store.fetchedCoupons, dispatch, store.coupon, store.couponId, handleModalClose]);
 
   const onKeyDown = useCallback(
     (evt: KeyboardEvent) => {
@@ -61,6 +77,8 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
 
   useEffect(() => {
     if (isOpen) {
+      // @ts-ignore
+      // !!store.couponId && dispatch(updateCoupon(store.couponId));
       window.addEventListener('keydown', onKeyDown);
       setError('');
     }

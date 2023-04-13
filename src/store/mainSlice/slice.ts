@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StoreSchema } from '../types/types';
+import { fetchCoupons } from '../../services/couponsService';
 
 const initialState: StoreSchema = {
   userName: '',
@@ -16,14 +17,19 @@ const initialState: StoreSchema = {
   prolongBoxNumber: '',
   promo: '',
   promoActivated: false,
-  promoSum: 0,
+  promoSum: 1,
   coupon: '',
   couponActivated: false,
+  couponActivatedValue: '',
   couponSum: 0,
+  couponId: 0,
   totalSum: 0,
   toPaySum: 0,
   paymentType: '',
-  subscriptionCost: 0
+  subscriptionCost: 0,
+  error: '',
+  isLoading: false,
+  fetchedCoupons: null
 };
 
 export const storeSlice = createSlice({
@@ -81,8 +87,14 @@ export const storeSlice = createSlice({
     setCouponActivated: (state, action) => {
       state.couponActivated = action.payload;
     },
+    setCouponActivatedValue: (state, action) => {
+      state.couponActivatedValue = action.payload;
+    },
     setCouponSum: (state, action) => {
       state.couponSum = action.payload;
+    },
+    setCouponId: (state, action) => {
+      state.couponId = action.payload;
     },
     setTotalSum: (state, action) => {
       state.totalSum = action.payload;
@@ -96,6 +108,9 @@ export const storeSlice = createSlice({
     setSubscriptionCost: (state, action) => {
       state.subscriptionCost = action.payload;
     },
+    setFetchedCoupons: (state, action) => {
+      state.fetchedCoupons = action.payload;
+    },
     resetStore: (state) => {
       state.boxSize = '';
       state.boxSizeIndex = null;
@@ -103,6 +118,20 @@ export const storeSlice = createSlice({
       state.rentalPeriodIndex = null;
       state.subscriptionCost = 0;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCoupons.pending, (state, action) => {
+        state.error = undefined;
+        state.isLoading = true;
+      })
+      .addCase(fetchCoupons.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchCoupons.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
