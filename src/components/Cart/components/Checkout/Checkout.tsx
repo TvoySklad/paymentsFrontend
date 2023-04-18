@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
@@ -128,8 +128,22 @@ export const Checkout: FC = () => {
     sendEmailNotification(formatNotificationMessage(store));
   };
 
+    useEffect(() => {
+      if (!!payButtonActive) {
+        switch (store.paymentType) {
+          case 'Reccurent':
+            payReccurent();
+            break;
+          case 'Full':
+            pay();
+            break;
+          default:
+            break;
+        }
+      }
+    }, [store.paymentType]);
+
   function pay() {
-    dispatch(actions.setPaymentType('Full'));
     //@ts-ignore
     var widget = new cp.CloudPayments({
       language: 'ru-RU'
@@ -170,7 +184,6 @@ export const Checkout: FC = () => {
   }
 
   function payReccurent() {
-    dispatch(actions.setPaymentType('Reccurent'));
     //@ts-ignore
     var widget = new cp.CloudPayments();
     var receipt = {
@@ -234,6 +247,14 @@ export const Checkout: FC = () => {
     );
   }
 
+
+  const handlePayFull = () => {
+    dispatch(actions.setPaymentType('Full'));
+  }
+  const handlePayReccurent = () => {
+    dispatch(actions.setPaymentType('Reccurent'));
+  }
+
   return (
     <div className={cn.Checkout}>
       <div className={cn.promoContainer}>
@@ -272,7 +293,7 @@ export const Checkout: FC = () => {
           <span className={cn.totalSum__title}>Сумма к оплате</span>
           <span className={cn.totalSum__value}>{toPaySum} ₽</span>
         </div>
-        <button className={cn.payButton} disabled={!payButtonActive} onClick={pay}>
+        <button className={cn.payButton} disabled={!payButtonActive} onClick={handlePayFull}>
           Оплатить
         </button>
       </div>
@@ -280,7 +301,7 @@ export const Checkout: FC = () => {
         <div className={cn.subscription}>
           <button
             className={cn.subscriptionButton}
-            onClick={payReccurent}
+            onClick={handlePayReccurent}
             disabled={!subscriptionButtonActive}
           >
             Оформить подписку за {subscriptionCost} ₽/мес
