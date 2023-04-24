@@ -12,6 +12,7 @@ export const formatNotificationMessage = (data: StoreSchema) => {
     Contract: ${data.prolongContract || 'no-prolong'} 
     PrevBox: ${data.prolongBoxNumber || 'no-prolong'} 
     Promocode: ${data.promoActivated ? data.promoSum + data.promo : 'no-promo'}
+    CouponActivated: ${data.couponActivated ? data.couponSum + data.coupon : 'no-coupon'}
   `;
   return result;
 };
