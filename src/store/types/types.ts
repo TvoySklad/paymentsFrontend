@@ -1,8 +1,10 @@
 export type Coupon = {
-  id: number;
+  _id: number;
   value: string;
-  sum: string;
-  used: boolean;
+  discount: string;
+  isUsed: boolean;
+  periods: number[];
+  city: string[] | string;
 }
 
 export interface StoreSchema {
@@ -32,5 +34,5 @@ export interface StoreSchema {
   paymentType: string;
   error: string;
   isLoading: boolean;
-  fetchedCoupons: Coupon[];
+  fetchedCoupon: Coupon;
 }

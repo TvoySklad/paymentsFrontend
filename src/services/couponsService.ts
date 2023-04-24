@@ -3,32 +3,28 @@ import axios from 'axios';
 import { Coupon } from 'store/types/types';
 import { actions } from 'store/mainSlice/slice';
 
-export const fetchCoupons = createAsyncThunk(
-  'coupons/fetchAllCoupons',
-  async (_, thunkAPI) => {
+export const fetchCoupon = createAsyncThunk(
+  'coupons/fetchCoupon',
+  async (value: string, thunkAPI) => {
     try {
-      const [response1, response2] = await Promise.all([
-        axios.get<Coupon[]>('https://642f292ec26d69edc877bdbb.mockapi.io/tvoysklad/coupons'),
-        axios.get<Coupon[]>('https://642f292ec26d69edc877bdbb.mockapi.io/tvoysklad/coupons2')
-      ]);
+      const response = await axios.get<Coupon>(`http://45.84.224.129/coupons/${value}`);
+      thunkAPI.dispatch(actions.setFetchedCoupon(response.data));
 
-      const coupons = [...response1.data, ...response2.data];
-
-      thunkAPI.dispatch(actions.setFetchedCoupons(coupons));
-      return coupons;
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue('Something went wrong');
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.error);
     }
   }
 );
 
 export const updateCoupon = createAsyncThunk(
-  'coupons/fetchAllCoupons',
-  async ({id, name}: any, thunkAPI) => {
+  'coupons/updateCouponStatus',
+  async (value: string, thunkAPI) => {
     try {
-      const address = `https://642f292ec26d69edc877bdbb.mockapi.io/tvoysklad/coupons${name[1] == '2' ? '2' : ''}/${id}`
+      const address = `http://45.84.224.129/coupons/${value}`;
 
-      const response = await axios.put<Coupon>(address, { used: true });
+      const response = await axios.patch<Coupon>(address);
 
       return response.data;
     } catch (error) {

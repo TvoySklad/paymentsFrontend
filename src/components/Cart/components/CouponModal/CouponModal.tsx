@@ -4,7 +4,8 @@ import { Input } from '../../../../components/MainForm/components/Input/Input';
 import { actions } from '../../../../store/mainSlice/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStore } from '../../../../store/mainSlice/getStore';
-import { fetchCoupons, updateCoupon } from '../../../../services/couponsService';
+import { fetchCoupon, updateCoupon } from '../../../../services/couponsService';
+import { Coupon } from '../../../../store/types/types';
 
 interface CouponModalProps {
   isOpen: boolean;
@@ -36,33 +37,30 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
   const onContentClick = (evt: React.MouseEvent) => evt.stopPropagation();
 
   const checkCoupon = useCallback(async () => {
-    if (!!store.fetchedCoupons || store.fetchedCoupons.length === 0) {
-      try {
-        await dispatch(fetchCoupons);
-      } catch {
-        setError('Произошла ошибка - перезагрузите страницу и попробуйте еще раз');
+    try {
+      const coupon = await dispatch(fetchCoupon(store.coupon));
+      console.log(coupon);
+      if (!coupon.error) {
+        dispatch(actions.setCouponActivated(true));
+        dispatch(actions.setCouponActivatedValue(coupon.payload.value));
+        dispatch(actions.setCouponSum(+coupon.payload.discount));
+        setError('');
+        handleModalClose();
         return;
       }
-    }
-    const match = store.fetchedCoupons.find((item) => item.value === store.coupon);
-    if (match) {
-      if (!!match.used) {
+      dispatch(actions.setCouponActivated(false));
+      dispatch(actions.setCouponActivatedValue(''));
+      dispatch(actions.setCouponSum(null));
+      if (coupon.payload === 'Промокод уже был использован') {
         setError('Этот купон уже был использован');
         return;
       }
-      dispatch(actions.setCouponId(match.id));
-      dispatch(actions.setCouponActivated(true));
-      dispatch(actions.setCouponActivatedValue(match.value));
-      dispatch(actions.setCouponSum(+match.sum));
-      setError('');
-      handleModalClose();
+      setError('Такого купона не существует');
+    } catch {
+      setError('Произошла ошибка - перезагрузите страницу и попробуйте еще раз');
       return;
     }
-    dispatch(actions.setCouponActivated(false));
-    dispatch(actions.setCouponActivatedValue(''));
-    dispatch(actions.setCouponSum(null));
-    setError('Такого купона не существует');
-  }, [store.fetchedCoupons, dispatch, store.coupon, store.couponId, handleModalClose]);
+  }, [store.fetchedCoupon, dispatch, store.coupon, handleModalClose, store.couponActivatedValue, store.couponActivated]);
 
   const onKeyDown = useCallback(
     (evt: KeyboardEvent) => {
@@ -78,7 +76,6 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
   useEffect(() => {
     if (isOpen) {
       // @ts-ignore
-      // !!store.couponId && dispatch(updateCoupon(store.couponId));
       window.addEventListener('keydown', onKeyDown);
       setError('');
     }
@@ -100,7 +97,7 @@ export const CouponModal: FC<CouponModalProps> = (props) => {
           <button
             className={cn.submitCouponButton}
             onClick={checkCoupon}
-            disabled={store.coupon.length < 4}
+            disabled={store.coupon.length < 3}
           >
             Применить
           </button>

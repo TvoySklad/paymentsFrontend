@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StoreSchema } from '../types/types';
-import { fetchCoupons } from '../../services/couponsService';
+import { fetchCoupon } from '../../services/couponsService';
 
 const initialState: StoreSchema = {
   userName: '',
@@ -29,7 +29,7 @@ const initialState: StoreSchema = {
   subscriptionCost: 0,
   error: '',
   isLoading: false,
-  fetchedCoupons: null
+  fetchedCoupon: null
 };
 
 export const storeSlice = createSlice({
@@ -108,8 +108,8 @@ export const storeSlice = createSlice({
     setSubscriptionCost: (state, action) => {
       state.subscriptionCost = action.payload;
     },
-    setFetchedCoupons: (state, action) => {
-      state.fetchedCoupons = action.payload;
+    setFetchedCoupon: (state, action) => {
+      state.fetchedCoupon = action.payload;
     },
     resetStore: (state) => {
       state.boxSize = '';
@@ -121,14 +121,14 @@ export const storeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCoupons.pending, (state, action) => {
+      .addCase(fetchCoupon.pending, (state, action) => {
         state.error = undefined;
         state.isLoading = true;
       })
-      .addCase(fetchCoupons.fulfilled, (state, action) => {
+      .addCase(fetchCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
       })
-      .addCase(fetchCoupons.rejected, (state, action) => {
+      .addCase(fetchCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

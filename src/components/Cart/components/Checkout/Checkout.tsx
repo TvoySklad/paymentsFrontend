@@ -8,8 +8,9 @@ import { CouponModal } from '../CouponModal/CouponModal';
 import { sendTelegramMessage, sendEmailNotification } from '../../../../api/notificationsAPI';
 import { formatNotificationMessage, formatPaymentMessage } from 'utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
-import { fetchCoupons, updateCoupon } from '../../../../services/couponsService';
+import { fetchCoupon, updateCoupon } from '../../../../services/couponsService';
 import { AnyAction, AsyncThunkAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
@@ -112,15 +113,33 @@ export const Checkout: FC = () => {
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
     setIsPromoModalOpen(true);
-  }, []);
+  }, [store.couponId, store.couponActivatedValue]);
+
+  // const handlePromoModalOpen = () => {
+  //   window.scrollTo(0, 0);
+  //   for (let i = 100; i <= 999; i++) {
+  //     setTimeout(() => {
+  //       const newTask = {
+  //         value: `ВК${i.toString()}`,
+  //         discount: "1500",
+  //         isUsed: false,
+  //         city: "any",
+  //         periods: [1, 3, 6, 12]
+  //       };
+  //       fetch("http://45.84.224.129/coupons", {
+  //         method: "POST",
+  //         headers: { "content-type": "application/json" },
+  //         body: JSON.stringify(newTask)
+  //       });
+  //       console.log("sent " + i);
+  //     }, (i - 100) * 1500);
+  //   }
+  //
+  // };
 
   const handleCouponModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
     setIsCouponModalOpen(true);
-    dispatch(fetchCoupons());
-    setInterval(() => {
-      dispatch(fetchCoupons());
-    }, 30000);
   }, []);
 
   const handleSendManagerNotifications = () => {
@@ -128,20 +147,20 @@ export const Checkout: FC = () => {
     sendEmailNotification(formatNotificationMessage(store));
   };
 
-    useEffect(() => {
-      if (!!payButtonActive) {
-        switch (store.paymentType) {
-          case 'Reccurent':
-            payReccurent();
-            break;
-          case 'Full':
-            pay();
-            break;
-          default:
-            break;
-        }
+  useEffect(() => {
+    if (!!payButtonActive) {
+      switch (store.paymentType) {
+        case 'Reccurent':
+          payReccurent();
+          break;
+        case 'Full':
+          pay();
+          break;
+        default:
+          break;
       }
-    }, [store.paymentType]);
+    }
+  }, [store.paymentType]);
 
   function pay() {
     //@ts-ignore
@@ -170,7 +189,7 @@ export const Checkout: FC = () => {
         onSuccess: function(options: any) {
           handleSendManagerNotifications();
           // @ts-ignore
-          !!store.couponId && dispatch(updateCoupon({ id: store.couponId, name: store.couponActivatedValue }));
+          !!store.couponActivatedValue && dispatch(updateCoupon(store.couponActivatedValue));
         },
         onFail: function(reason: any, options: any) {
           console.log('payment fail');
@@ -250,10 +269,10 @@ export const Checkout: FC = () => {
 
   const handlePayFull = () => {
     dispatch(actions.setPaymentType('Full'));
-  }
+  };
   const handlePayReccurent = () => {
     dispatch(actions.setPaymentType('Reccurent'));
-  }
+  };
 
   return (
     <div className={cn.Checkout}>
