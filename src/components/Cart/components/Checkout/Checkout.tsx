@@ -113,6 +113,7 @@ export const Checkout: FC = () => {
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
     setIsPromoModalOpen(true);
+    // dispatch(updateCoupon(store.couponActivatedValue));
   }, [store.couponId, store.couponActivatedValue]);
 
   // const handlePromoModalOpen = () => {

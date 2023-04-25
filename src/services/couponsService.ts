@@ -7,7 +7,7 @@ export const fetchCoupon = createAsyncThunk(
   'coupons/fetchCoupon',
   async (value: string, thunkAPI) => {
     try {
-      const response = await axios.get<Coupon>(`https://apitvoyskladcom/coupons/${value}`);
+      const response = await axios.get<Coupon>(`https://apitvoyskladcom.us.to/coupons/${value}`);
       thunkAPI.dispatch(actions.setFetchedCoupon(response.data));
 
       return response.data;
@@ -22,7 +22,7 @@ export const updateCoupon = createAsyncThunk(
   'coupons/updateCouponStatus',
   async (value: string, thunkAPI) => {
     try {
-      const address = `https://apitvoyskladcom/coupons/${value}`;
+      const address = `https://apitvoyskladcom.us.to/coupons/${value}`;
 
       const response = await axios.patch<Coupon>(address);
 
