@@ -69,6 +69,14 @@ export const AddressDropdown: FC = () => {
           >
             Пр. Дзержинского, 211/2
           </span>
+          <span
+            id='K38'
+            className={cn.dropdown__item}
+            onClick={setAddress}
+            data-city={'Новороссийск'}
+          >
+            Ул Куникова 38-40
+          </span>
         </div>
         <div className={cn.kurskBlock}>
           <h4 className={cn.dropdown__title}>Курск</h4>

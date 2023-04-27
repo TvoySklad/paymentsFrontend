@@ -36,7 +36,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
 
   const checkPromo = useCallback(() => {
     let match = promoList.find((item) => item.name === store.promo);
-    if (match.name === 'НОВОРОССИЙСК' && store.city !== 'Новороссийск') {
+    if (match?.name === 'НОВОРОССИЙСК' && store.city !== 'Новороссийск') {
       match = undefined;
     }
     if (match) {

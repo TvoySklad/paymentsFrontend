@@ -2,15 +2,13 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { A13, D211, M75 } from '../../../../db/db';
+import { A13, D211, M75, K38 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
 import { sendTelegramMessage, sendEmailNotification } from '../../../../api/notificationsAPI';
 import { formatNotificationMessage, formatPaymentMessage } from 'utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
-import { fetchCoupon, updateCoupon } from '../../../../services/couponsService';
-import { AnyAction, AsyncThunkAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { updateCoupon } from '../../../../services/couponsService';
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
@@ -25,6 +23,8 @@ export const Checkout: FC = () => {
         return M75;
       case 'D211':
         return D211;
+      case 'K38':
+        return K38;
       case 'A13':
         return A13;
     }
@@ -73,6 +73,10 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
+    if (store.addressId === 'K38') {
+      return false;
+    }
+
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -93,6 +97,9 @@ export const Checkout: FC = () => {
   ]);
 
   const subscriptionButtonActive = useMemo(() => {
+    if (store.addressId === 'K38') {
+      return false;
+    }
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -107,36 +114,14 @@ export const Checkout: FC = () => {
     store.prolongBoxNumber.length,
     store.prolongContract.length,
     store.userName.length,
-    store.userPhone.length
+    store.userPhone.length,
+    store.addressId
   ]);
 
   const handlePromoModalOpen = useCallback(() => {
     window.scrollTo(0, 0);
     setIsPromoModalOpen(true);
-    // dispatch(updateCoupon(store.couponActivatedValue));
   }, [store.couponId, store.couponActivatedValue]);
-
-  // const handlePromoModalOpen = () => {
-  //   window.scrollTo(0, 0);
-  //   for (let i = 100; i <= 999; i++) {
-  //     setTimeout(() => {
-  //       const newTask = {
-  //         value: `ВК${i.toString()}`,
-  //         discount: "1500",
-  //         isUsed: false,
-  //         city: "any",
-  //         periods: [1, 3, 6, 12]
-  //       };
-  //       fetch("http://45.84.224.129/coupons", {
-  //         method: "POST",
-  //         headers: { "content-type": "application/json" },
-  //         body: JSON.stringify(newTask)
-  //       });
-  //       console.log("sent " + i);
-  //     }, (i - 100) * 1500);
-  //   }
-  //
-  // };
 
   const handleCouponModalOpen = useCallback(() => {
     window.scrollTo(0, 0);

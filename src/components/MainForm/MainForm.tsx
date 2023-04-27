@@ -8,11 +8,7 @@ import { ProlongingBlock } from './components/ProlongingBlock/ProlongingBlock';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../store/mainSlice/getStore';
 
-interface MainFormProps {
-  className?: string;
-}
-
-export const MainForm: FC<MainFormProps> = (props) => {
+export const MainForm: FC = () => {
   const store = useSelector(getStore);
 
   return (
