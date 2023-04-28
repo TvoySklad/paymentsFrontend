@@ -134,6 +134,11 @@ export const Checkout: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(actions.setToPaySum(toPaySum));
+
+  }, [toPaySum]);
+
+  useEffect(() => {
     if (!!payButtonActive) {
       switch (store.paymentType) {
         case 'Reccurent':
@@ -160,8 +165,8 @@ export const Checkout: FC = () => {
       'auth', // или 'charge'
       {
         //options
-        // publicId: 'test_api_00000000000000000000002', //id из личного кабинета
-        publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
+        publicId: 'test_api_00000000000000000000002', //id из личного кабинета
+        // publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
         description: formatPaymentMessage(store), //назначение
         amount: toPaySum, //сумма
         currency: 'RUB', //валюта
