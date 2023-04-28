@@ -5,6 +5,7 @@ export const formatNotificationMessage = (data: StoreSchema) => {
     Tel: ${data.userPhone} 
     Email: ${data.userEmail || 'no_email'} 
     PaymentType: ${data.paymentType} 
+    TotalSum: ${data.toPaySum} 
     City: ${data.city} 
     Address: ${data.address} 
     BoxSize: ${data.boxSize} 

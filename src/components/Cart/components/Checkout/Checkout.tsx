@@ -56,7 +56,7 @@ export const Checkout: FC = () => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      return (totalSum * store.promoSum) - store.couponSum;
+      return Math.floor((totalSum * store.promoSum) - store.couponSum);
     }
     return 0;
   }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.couponSum]);
@@ -160,6 +160,7 @@ export const Checkout: FC = () => {
       'auth', // или 'charge'
       {
         //options
+        // publicId: 'test_api_00000000000000000000002', //id из личного кабинета
         publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
         description: formatPaymentMessage(store), //назначение
         amount: toPaySum, //сумма
