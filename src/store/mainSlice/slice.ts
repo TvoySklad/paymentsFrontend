@@ -3,9 +3,9 @@ import { StoreSchema } from '../types/types';
 import { fetchCoupon } from '../../services/couponsService';
 
 const initialState: StoreSchema = {
-  userName: '',
-  userPhone: '',
-  userEmail: '',
+  userName: 'Test',
+  userPhone: '+79819558025',
+  userEmail: 'kosnej@yandex.ru',
   city: '',
   address: '',
   addressId: '',
@@ -13,8 +13,8 @@ const initialState: StoreSchema = {
   boxSizeIndex: null,
   rentalPeriod: '',
   rentalPeriodIndex: null,
-  prolongContract: '',
-  prolongBoxNumber: '',
+  prolongContract: '12345',
+  prolongBoxNumber: '123',
   promo: '',
   promoActivated: false,
   promoSum: 1,

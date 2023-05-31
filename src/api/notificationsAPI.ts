@@ -1,5 +1,12 @@
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
+import { formatNotificationMessage } from '../utils/foramatters';
+import { StoreSchema } from '../store/types/types';
+
+export  const handleSendManagerNotifications = (store: StoreSchema) => {
+  sendTelegramMessage(formatNotificationMessage(store));
+  sendEmailNotification(formatNotificationMessage(store));
+};
 
 export const sendTelegramMessage = async (message: string) => {
   const res = await axios.post(
