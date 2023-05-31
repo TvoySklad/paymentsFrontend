@@ -5,7 +5,7 @@ export const formatNotificationMessage = (data: StoreSchema) => {
     Tel: ${data.userPhone} 
     Email: ${data.userEmail || 'no_email'} 
     PaymentType: ${data.paymentType} 
-    TotalSum: ${data.toPaySum} 
+    TotalSum: ${data.paymentType === 'Reccurent' ? data.subscriptionCost : data.toPaySum} ${data.paymentType === 'Reccurent' ? 'в месяц' : ''} 
     City: ${data.city} 
     Address: ${data.address} 
     BoxSize: ${data.boxSize} 
