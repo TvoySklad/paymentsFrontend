@@ -23,7 +23,7 @@ export const createOrder = async (sum: number, email: string, phone: string) => 
 
     console.log(response.data);
     if (!!response.data.errorCode) {
-      throw new Error('Auth error on alfa api');
+      throw new Error('Some error on alfa api');
     }
     return response.data;
   } catch (error) {
@@ -34,13 +34,13 @@ export const createOrder = async (sum: number, email: string, phone: string) => 
 export const createOrderReccurent = async (sum: number, email: string, phone: string) => {
   const orderNumber = Date.now();
   try {
-    const response = await axios.post(`https://alfa.rbsuat.com/payment/rest/recurrentPayment.do`, {}, {
+    const response = await axios.post(`https://alfa.rbsuat.com/payment/recurrentPayment.do`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
         password: 'r-tvoysklad*?1',
         orderNumber: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
-        amount: sum * 100,
+        amount: 1000 * 100,
         returnUrl: 'http://localhost:3000',
         failUrl: 'http://localhost:3000',
         email,
@@ -49,8 +49,8 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
     });
 
     console.log(response.data);
-    if (!!response.data.errorCode) {
-      throw new Error('Auth error on alfa api');
+    if (!response.data.success) {
+      throw new Error(`Some error on alfa api. Error code: ${response.data.error.code}. Msg: ${response.data.error.description}`);
     }
     return response.data;
   } catch (error) {
@@ -70,8 +70,7 @@ export const getOrderStatus = async (orderId: string) => {
 
     console.log(response.data);
 
-    const { OrderStatus } = response.data;
-    return OrderStatus || null;
+    return response.data;
   } catch (err) {
     console.log(err);
   }

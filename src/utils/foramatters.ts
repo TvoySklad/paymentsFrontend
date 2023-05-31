@@ -1,5 +1,11 @@
 import { StoreSchema } from '../store/types/types';
 
+export interface alfaPaymentResultData {
+  amount: string;
+  cardholderName: string;
+  errorCode?: string;
+}
+
 export const formatNotificationMessage = (data: StoreSchema) => {
   const result = `Name: ${data.userName}, 
     Tel: ${data.userPhone} 
@@ -21,4 +27,24 @@ export const formatNotificationMessage = (data: StoreSchema) => {
 export const formatPaymentMessage = (data: StoreSchema) => {
   const result = `Оплата бокса №${data.prolongBoxNumber} ${data.address}`;
   return result;
+};
+
+
+export const formatAlfaPaymentResultNotification = (data: alfaPaymentResultData, isSuccess: boolean) => {
+  if (isSuccess) {
+    return (
+      `Платеж прошел
+       amount: ${data.amount.toString()}
+       cardholder name: ${data.cardholderName}
+      `
+    )
+  } else {
+    return (
+      `Платеж отклонен
+       amount: ${data.amount.toString()}
+       errorCode: ${data.errorCode || ''}
+       cardholder name: ${data.cardholderName}
+      `
+    )
+  }
 };

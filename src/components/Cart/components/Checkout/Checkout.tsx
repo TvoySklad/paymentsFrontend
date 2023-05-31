@@ -6,6 +6,7 @@ import { A13, D211, M75, K38 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
 import {
+  handleSendAlfaPaymentResultNotifications,
   handleSendManagerNotifications
 } from '../../../../api/notificationsAPI';
 import { formatNotificationMessage, formatPaymentMessage } from 'utils/foramatters';
@@ -101,9 +102,9 @@ export const Checkout: FC = () => {
   ]);
 
   const subscriptionButtonActive = useMemo(() => {
-    if (store.addressId === 'K38') {
-      return false;
-    }
+    // if (store.addressId === 'K38') {
+    //   return false;
+    // }
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -119,7 +120,6 @@ export const Checkout: FC = () => {
     store.prolongContract.length,
     store.userName.length,
     store.userPhone.length,
-    store.addressId
   ]);
 
   const handlePromoModalOpen = useCallback(() => {
@@ -143,15 +143,24 @@ export const Checkout: FC = () => {
 
     const checkUrlParams = async () => {
       const paramValue = params.get('orderId');
-      const orderStatus = await getOrderStatus(paramValue);
-      if (orderStatus === 1 || orderStatus === 2) {
+      const result = await getOrderStatus(paramValue);
+      if (result.orderStatus === 1 || result.orderStatus === 2) {
         console.log('success');
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
+        // handleSendAlfaPaymentResultNotifications({
+        //   amount: result.amount || '',
+        //   cardholderName: result.cardholderName || ''
+        // }, true)
       } else {
         console.log('fail');
         setIsAlfaPaymentSuccessful(false);
         setIsPayResultModalOpen(true);
+        // handleSendAlfaPaymentResultNotifications({
+        //   amount: result.amount || '',
+        //   errorCode: result.ErrorCode || '',
+        //   cardholderName: result.cardholderName || ''
+        // }, false)
       }
     };
 
@@ -190,8 +199,10 @@ export const Checkout: FC = () => {
     if (store.paymentType === 'Reccurent') {
       const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
       window.location.href = response.formUrl;
-
+      
     } else {
+      // const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
+      // window.location.href = response.formUrl;
       const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
       window.location.href = response.formUrl;
 
@@ -353,7 +364,7 @@ export const Checkout: FC = () => {
           Оплатить
         </button>
         <button className={cn.payButton} disabled={false} onClick={handlePayAlfa}>
-          alfapay
+         alfapay
         </button>
       </div>
       {subscriptionCost && (
