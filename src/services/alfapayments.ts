@@ -1,19 +1,21 @@
 import axios from 'axios';
+import { generateOrderNumber } from '../utils/foramatters';
 
 export const createOrder = async (sum: number, email: string, phone: string) => {
-  const orderNumber = Date.now();
+  const orderNumber = generateOrderNumber();
   try {
-    const response = await axios.post(`https://alfa.rbsuat.com/payment/rest/register.do`, {}, {
+    const response = await axios.post(`https://payment.alfabank.ru/payment/rest/register.do`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
-        password: 'r-tvoysklad*?1',
+        password: 'Dubai203050',
         orderNumber: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
         amount: sum * 100,
-        returnUrl: 'http://localhost:3000',
-        failUrl: 'http://localhost:3000',
+        returnUrl: 'https://pay.tvoysklad.com',
+        failUrl: 'https://pay.tvoysklad.com',
         email,
-        phone
+        phone,
+        clientId: orderNumber
       },
       headers: {
         'Access-Control-Allow-Origin': '*'
@@ -32,13 +34,14 @@ export const createOrder = async (sum: number, email: string, phone: string) => 
 };
 
 export const createOrderReccurent = async (sum: number, email: string, phone: string) => {
-  const orderNumber = Date.now();
+  const orderNumber = generateOrderNumber();
   try {
-    const response = await axios.post(`https://alfa.rbsuat.com/payment/recurrentPayment.do`, {}, {
+    // this is a test api address and test login/pwd
+    const response = await axios.post(`https://alfa.rbsuat.com/payment/rest/paymentOrderBinding.do`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
         password: 'r-tvoysklad*?1',
-        orderNumber: orderNumber.toString(),
+        mdOrder: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
         amount: 1000 * 100,
         returnUrl: 'http://localhost:3000',
@@ -46,6 +49,10 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
         email,
         phone
       },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true
     });
 
     console.log(response.data);
@@ -60,10 +67,10 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
 
 export const getOrderStatus = async (orderId: string) => {
   try {
-    const response = await axios.post(`https://alfa.rbsuat.com/payment/rest/getOrderStatus.do`, {}, {
+    const response = await axios.post(`https://payment.alfabank.ru/payment/rest/getOrderStatus.do`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
-        password: 'r-tvoysklad*?1',
+        password: 'Dubai203050',
         orderId: orderId.toString()
       },
     });

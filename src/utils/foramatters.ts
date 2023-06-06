@@ -48,3 +48,17 @@ export const formatAlfaPaymentResultNotification = (data: alfaPaymentResultData,
     )
   }
 };
+
+export const generateOrderNumber = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+  var yy = String(today.getFullYear()).substr(-2);
+
+// Generate a random three-digit number
+  var randomNumber = Math.floor(Math.random() * 900) + 100;
+
+// Combine the date and random number into a string
+  var result = dd + mm + yy + randomNumber;
+  return result;
+}

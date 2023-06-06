@@ -102,9 +102,9 @@ export const Checkout: FC = () => {
   ]);
 
   const subscriptionButtonActive = useMemo(() => {
-    // if (store.addressId === 'K38') {
-    //   return false;
-    // }
+    if (store.addressId === 'K38') {
+      return false;
+    }
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -120,6 +120,7 @@ export const Checkout: FC = () => {
     store.prolongContract.length,
     store.userName.length,
     store.userPhone.length,
+    store.addressId
   ]);
 
   const handlePromoModalOpen = useCallback(() => {
@@ -144,7 +145,7 @@ export const Checkout: FC = () => {
     const checkUrlParams = async () => {
       const paramValue = params.get('orderId');
       const result = await getOrderStatus(paramValue);
-      if (result.orderStatus === 1 || result.orderStatus === 2) {
+      if (result.OrderStatus === 1 || result.OrderStatus === 2) {
         console.log('success');
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
@@ -199,10 +200,8 @@ export const Checkout: FC = () => {
     if (store.paymentType === 'Reccurent') {
       const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
       window.location.href = response.formUrl;
-      
+
     } else {
-      // const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
-      // window.location.href = response.formUrl;
       const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
       window.location.href = response.formUrl;
 
@@ -363,9 +362,9 @@ export const Checkout: FC = () => {
         <button className={cn.payButton} disabled={!payButtonActive} onClick={handlePayFull}>
           Оплатить
         </button>
-        <button className={cn.payButton} disabled={false} onClick={handlePayAlfa}>
-         alfapay
-        </button>
+        {/*<button className={cn.payButton} disabled={false} onClick={handlePayAlfa}>*/}
+        {/* alfapay*/}
+        {/*</button>*/}
       </div>
       {subscriptionCost && (
         <div className={cn.subscription}>
