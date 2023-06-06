@@ -5,10 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { A13, D211, M75, K38 } from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
-import { sendTelegramMessage, sendEmailNotification } from '../../../../api/notificationsAPI';
+import {
+  handleSendAlfaPaymentResultNotifications,
+  handleSendManagerNotifications
+} from '../../../../api/notificationsAPI';
 import { formatNotificationMessage, formatPaymentMessage } from 'utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
 import { updateCoupon } from '../../../../services/couponsService';
+import {
+  createOrder,
+  createOrderReccurent,
+  getOrderStatus
+} from '../../../../services/alfapayments';
+import { PayResult } from '../PaymentResultModal/PayResult';
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
@@ -73,10 +82,6 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (store.addressId === 'K38') {
-      return false;
-    }
-
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -128,24 +133,61 @@ export const Checkout: FC = () => {
     setIsCouponModalOpen(true);
   }, []);
 
-  const handleSendManagerNotifications = () => {
-    sendTelegramMessage(formatNotificationMessage(store));
-    sendEmailNotification(formatNotificationMessage(store));
-  };
+  const [isPayResultModalOpen, setIsPayResultModalOpen] = useState(false);
+  const [isAlfaPaymentSuccessful, setIsAlfaPaymentSuccessful] = useState(true);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const hasParams = params.toString().length > 0;
+
+    if (!hasParams) return;
+
+    const checkUrlParams = async () => {
+      const paramValue = params.get('orderId');
+      const result = await getOrderStatus(paramValue);
+      if (result.OrderStatus === 1 || result.OrderStatus === 2) {
+        console.log('success');
+        setIsAlfaPaymentSuccessful(true);
+        setIsPayResultModalOpen(true);
+        // handleSendAlfaPaymentResultNotifications({
+        //   amount: result.amount || '',
+        //   cardholderName: result.cardholderName || ''
+        // }, true)
+      } else {
+        console.log('fail');
+        setIsAlfaPaymentSuccessful(false);
+        setIsPayResultModalOpen(true);
+        // handleSendAlfaPaymentResultNotifications({
+        //   amount: result.amount || '',
+        //   errorCode: result.ErrorCode || '',
+        //   cardholderName: result.cardholderName || ''
+        // }, false)
+      }
+    };
+
+    checkUrlParams();
+  }, []);
 
   useEffect(() => {
     dispatch(actions.setToPaySum(toPaySum));
-
   }, [toPaySum]);
 
   useEffect(() => {
     if (!!payButtonActive) {
       switch (store.paymentType) {
         case 'Reccurent':
-          payReccurent();
+          if (store.addressId === 'K38') {
+            handlePayAlfa();
+            return;
+          }
+          payReccurentCloudPayments();
           break;
         case 'Full':
-          pay();
+          if (store.addressId === 'K38') {
+            handlePayAlfa();
+            return;
+          }
+          payCloudPayments();
           break;
         default:
           break;
@@ -153,7 +195,28 @@ export const Checkout: FC = () => {
     }
   }, [store.paymentType]);
 
-  function pay() {
+
+  const handlePayAlfa = async () => {
+    if (store.paymentType === 'Reccurent') {
+      const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
+      window.location.href = response.formUrl;
+
+    } else {
+      const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
+      window.location.href = response.formUrl;
+
+    }
+  };
+
+  const handlePayFull = () => {
+    dispatch(actions.setPaymentType('Full'));
+  };
+
+  const handlePayReccurent = () => {
+    dispatch(actions.setPaymentType('Reccurent'));
+  };
+
+  function payCloudPayments() {
     //@ts-ignore
     var widget = new cp.CloudPayments({
       language: 'ru-RU'
@@ -179,7 +242,7 @@ export const Checkout: FC = () => {
       },
       {
         onSuccess: function(options: any) {
-          handleSendManagerNotifications();
+          handleSendManagerNotifications(store);
           // @ts-ignore
           !!store.couponActivatedValue && dispatch(updateCoupon(store.couponActivatedValue));
         },
@@ -194,7 +257,7 @@ export const Checkout: FC = () => {
     );
   }
 
-  function payReccurent() {
+  function payReccurentCloudPayments() {
     //@ts-ignore
     var widget = new cp.CloudPayments();
     var receipt = {
@@ -249,7 +312,7 @@ export const Checkout: FC = () => {
       },
       function(options: any) {
         // success
-        handleSendManagerNotifications();
+        handleSendManagerNotifications(store);
       },
       function(reason: any, options: any) {
         // fail
@@ -257,14 +320,6 @@ export const Checkout: FC = () => {
       }
     );
   }
-
-
-  const handlePayFull = () => {
-    dispatch(actions.setPaymentType('Full'));
-  };
-  const handlePayReccurent = () => {
-    dispatch(actions.setPaymentType('Reccurent'));
-  };
 
   return (
     <div className={cn.Checkout}>
@@ -307,6 +362,9 @@ export const Checkout: FC = () => {
         <button className={cn.payButton} disabled={!payButtonActive} onClick={handlePayFull}>
           Оплатить
         </button>
+        {/*<button className={cn.payButton} disabled={false} onClick={handlePayAlfa}>*/}
+        {/* alfapay*/}
+        {/*</button>*/}
       </div>
       {subscriptionCost && (
         <div className={cn.subscription}>
@@ -328,6 +386,7 @@ export const Checkout: FC = () => {
       </div>
       <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />
       <CouponModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />
+      <PayResult isOpen={isPayResultModalOpen} setIsOpen={setIsPayResultModalOpen} isSuccess={isAlfaPaymentSuccessful} />
     </div>
   );
 };

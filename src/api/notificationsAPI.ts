@@ -1,5 +1,17 @@
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
+import { alfaPaymentResultData, formatAlfaPaymentResultNotification, formatNotificationMessage } from '../utils/foramatters';
+import { StoreSchema } from '../store/types/types';
+
+export  const handleSendManagerNotifications = (store: StoreSchema) => {
+  sendTelegramMessage(formatNotificationMessage(store));
+  sendEmailNotification(formatNotificationMessage(store));
+};
+
+export  const handleSendAlfaPaymentResultNotifications = (data: alfaPaymentResultData, isSuccess: boolean) => {
+  sendTelegramMessage(formatAlfaPaymentResultNotification(data, isSuccess));
+  sendEmailNotification(formatAlfaPaymentResultNotification(data, isSuccess));
+};
 
 export const sendTelegramMessage = async (message: string) => {
   const res = await axios.post(

@@ -1,5 +1,11 @@
 import { StoreSchema } from '../store/types/types';
 
+export interface alfaPaymentResultData {
+  amount: string;
+  cardholderName: string;
+  errorCode?: string;
+}
+
 export const formatNotificationMessage = (data: StoreSchema) => {
   const result = `Name: ${data.userName}, 
     Tel: ${data.userPhone} 
@@ -22,3 +28,37 @@ export const formatPaymentMessage = (data: StoreSchema) => {
   const result = `Оплата бокса №${data.prolongBoxNumber} ${data.address}`;
   return result;
 };
+
+
+export const formatAlfaPaymentResultNotification = (data: alfaPaymentResultData, isSuccess: boolean) => {
+  if (isSuccess) {
+    return (
+      `Платеж прошел
+       amount: ${data.amount.toString()}
+       cardholder name: ${data.cardholderName}
+      `
+    )
+  } else {
+    return (
+      `Платеж отклонен
+       amount: ${data.amount.toString()}
+       errorCode: ${data.errorCode || ''}
+       cardholder name: ${data.cardholderName}
+      `
+    )
+  }
+};
+
+export const generateOrderNumber = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+  var yy = String(today.getFullYear()).substr(-2);
+
+// Generate a random three-digit number
+  var randomNumber = Math.floor(Math.random() * 900) + 100;
+
+// Combine the date and random number into a string
+  var result = dd + mm + yy + randomNumber;
+  return result;
+}
