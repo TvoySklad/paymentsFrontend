@@ -3,9 +3,9 @@ import emailjs from '@emailjs/browser';
 import { alfaPaymentResultData, formatAlfaPaymentResultNotification, formatNotificationMessage } from '../utils/foramatters';
 import { StoreSchema } from '../store/types/types';
 
-export  const handleSendManagerNotifications = (store: StoreSchema) => {
-  sendTelegramMessage(formatNotificationMessage(store));
-  sendEmailNotification(formatNotificationMessage(store));
+export  const handleSendManagerNotifications = (store: StoreSchema, isAlpha: boolean = false) => {
+  sendTelegramMessage(formatNotificationMessage(store, isAlpha));
+  sendEmailNotification(formatNotificationMessage(store, isAlpha));
 };
 
 export  const handleSendAlfaPaymentResultNotifications = (data: alfaPaymentResultData, isSuccess: boolean) => {

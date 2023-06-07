@@ -2,11 +2,10 @@ import { StoreSchema } from '../store/types/types';
 
 export interface alfaPaymentResultData {
   amount: string;
-  cardholderName: string;
   errorCode?: string;
 }
 
-export const formatNotificationMessage = (data: StoreSchema) => {
+export const formatNotificationMessage = (data: StoreSchema, isAlpha: boolean = false) => {
   const result = `Name: ${data.userName}, 
     Tel: ${data.userPhone} 
     Email: ${data.userEmail || 'no_email'} 
@@ -20,6 +19,8 @@ export const formatNotificationMessage = (data: StoreSchema) => {
     PrevBox: ${data.prolongBoxNumber || 'no-prolong'} 
     Promocode: ${data.promoActivated ? data.promoSum + data.promo : 'no-promo'}
     CouponActivated: ${data.couponActivated ? data.couponSum + data.coupon : 'no-coupon'}
+    
+    ${isAlpha ? 'Оплата по Альфе на Куникова - пока не прошла' : 'Оплата прошла'}
   `;
   return result;
 };
@@ -35,7 +36,6 @@ export const formatAlfaPaymentResultNotification = (data: alfaPaymentResultData,
     return (
       `Платеж прошел
        amount: ${data.amount.toString()}
-       cardholder name: ${data.cardholderName}
       `
     )
   } else {
@@ -43,7 +43,6 @@ export const formatAlfaPaymentResultNotification = (data: alfaPaymentResultData,
       `Платеж отклонен
        amount: ${data.amount.toString()}
        errorCode: ${data.errorCode || ''}
-       cardholder name: ${data.cardholderName}
       `
     )
   }

@@ -149,19 +149,17 @@ export const Checkout: FC = () => {
         console.log('success');
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
-        // handleSendAlfaPaymentResultNotifications({
-        //   amount: result.amount || '',
-        //   cardholderName: result.cardholderName || ''
-        // }, true)
+        handleSendAlfaPaymentResultNotifications({
+          amount: result.amount || '',
+        }, true)
       } else {
         console.log('fail');
         setIsAlfaPaymentSuccessful(false);
         setIsPayResultModalOpen(true);
-        // handleSendAlfaPaymentResultNotifications({
-        //   amount: result.amount || '',
-        //   errorCode: result.ErrorCode || '',
-        //   cardholderName: result.cardholderName || ''
-        // }, false)
+        handleSendAlfaPaymentResultNotifications({
+          amount: result.amount || '',
+          errorCode: result.ErrorCode || '',
+        }, false)
       }
     };
 
@@ -204,8 +202,8 @@ export const Checkout: FC = () => {
     } else {
       const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
       if (response?.formUrl) {
+        handleSendManagerNotifications(store, true);
         window.location.href = response.formUrl;
-
       }
 
     }
