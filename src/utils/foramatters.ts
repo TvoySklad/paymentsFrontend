@@ -57,7 +57,6 @@ export const generateOrderNumber = (phone: string) => {
   var randomNumber = Math.floor(Math.random() * 900) + 100;
   var lastFourNumDigits = phone.slice(-4);
 
-// Combine the date and random number into a string
   var result = dd + mm + yy + randomNumber + lastFourNumDigits;
   return result;
 }
