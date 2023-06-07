@@ -203,7 +203,10 @@ export const Checkout: FC = () => {
 
     } else {
       const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
-      window.location.href = response.formUrl;
+      if (response?.formUrl) {
+        window.location.href = response.formUrl;
+
+      }
 
     }
   };
@@ -386,7 +389,8 @@ export const Checkout: FC = () => {
       </div>
       <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />
       <CouponModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />
-      <PayResult isOpen={isPayResultModalOpen} setIsOpen={setIsPayResultModalOpen} isSuccess={isAlfaPaymentSuccessful} />
+      <PayResult isOpen={isPayResultModalOpen} setIsOpen={setIsPayResultModalOpen}
+                 isSuccess={isAlfaPaymentSuccessful} />
     </div>
   );
 };

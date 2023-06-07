@@ -2,9 +2,9 @@ import axios from 'axios';
 import { generateOrderNumber } from '../utils/foramatters';
 
 export const createOrder = async (sum: number, email: string, phone: string) => {
-  const orderNumber = generateOrderNumber();
+  const orderNumber = generateOrderNumber(phone);
   try {
-    const response = await axios.post(`https://payment.alfabank.ru/payment/rest/register.do`, {}, {
+    const response = await axios.post(`https://apitvoyskladcom.us.to/proxy/register`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
         password: 'Dubai203050',
@@ -34,7 +34,7 @@ export const createOrder = async (sum: number, email: string, phone: string) => 
 };
 
 export const createOrderReccurent = async (sum: number, email: string, phone: string) => {
-  const orderNumber = generateOrderNumber();
+  const orderNumber = generateOrderNumber(phone);
   try {
     // this is a test api address and test login/pwd
     const response = await axios.post(`https://alfa.rbsuat.com/payment/rest/paymentOrderBinding.do`, {}, {
@@ -67,7 +67,7 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
 
 export const getOrderStatus = async (orderId: string) => {
   try {
-    const response = await axios.post(`https://payment.alfabank.ru/payment/rest/getOrderStatus.do`, {}, {
+    const response = await axios.post(`https://apitvoyskladcom.us.to/proxy/check`, {}, {
       params: {
         userName: 'r-tvoysklad-api',
         password: 'Dubai203050',
