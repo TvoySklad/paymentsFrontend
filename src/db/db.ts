@@ -257,3 +257,116 @@ export const K38: AddressDataSchema = [
     ],
   },
 ];
+
+export const GEL: AddressDataSchema = [
+  {
+    name: '19/57-1',
+    subscriptionCost: '13300',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '13300', total: '13300' },
+      { period: 3, name: '3 месяца (-5%)', price: '12635', total: '37905' },
+      { period: 6, name: '6 месяцев (-10%)', price: '11970', total: '71820' },
+      { period: 12, name: '12 месяцев (-15%)', price: '11305', total: '135660' },
+    ],
+  },
+  {
+    name: '12/36-1',
+    subscriptionCost: '9120',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '9600', total: '9600' },
+      { period: 3, name: '3 месяца (-5%)', price: '9120', total: '27360' },
+      { period: 6, name: '6 месяцев (-10%)', price: '8640', total: '51840' },
+      { period: 12, name: '12 месяцев (-15%)', price: '8160', total: '97920' },
+    ],
+  },
+  {
+    name: '3/9-1',
+    subscriptionCost: '3135',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '3300', total: '3300' },
+      { period: 3, name: '3 месяца (-5%)', price: '3135', total: '9405' },
+      { period: 6, name: '6 месяцев (-10%)', price: '2970', total: '17820' },
+      { period: 12, name: '12 месяцев (-15%)', price: '2805', total: '33660' },
+    ],
+  },
+  {
+    name: '2/6-1',
+    subscriptionCost: '2090',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '2200', total: '2200' },
+      { period: 3, name: '3 месяца (-5%)', price: '2090', total: '6270' },
+      { period: 6, name: '6 месяцев (-10%)', price: '1980', total: '11880' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1870', total: '22440' },
+    ],
+  },
+  {
+    name: '1,5/4,5-1',
+    subscriptionCost: '1568',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '1650', total: '1650' },
+      { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4704' },
+      { period: 6, name: '6 месяцев (-10%)', price: '1485', total: '8910' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1403', total: '16836' },
+    ],
+  },
+  {
+    name: '1,5/1,5-1',
+    subscriptionCost: '1283',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '1350', total: '1350' },
+      { period: 3, name: '3 месяца (-5%)', price: '1283', total: '3849' },
+      { period: 6, name: '6 месяцев (-10%)', price: '1215', total: '7290' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1148', total: '13776' },
+    ],
+  },
+  {
+    name: '12/24-1',
+    subscriptionCost: '9120',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '9600', total: '9600' },
+      { period: 3, name: '3 месяца (-5%)', price: '9120', total: '27360' },
+      { period: 6, name: '6 месяцев (-10%)', price: '8640', total: '51840' },
+      { period: 12, name: '12 месяцев (-15%)', price: '8160', total: '97920' },
+    ],
+  },
+  {
+    name: '10/20-1',
+    subscriptionCost: '7600',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '8000', total: '8000' },
+      { period: 3, name: '3 месяца (-5%)', price: '7600', total: '22800' },
+      { period: 6, name: '6 месяцев (-10%)', price: '7200', total: '43800' },
+      { period: 12, name: '12 месяцев (-15%)', price: '6800', total: '81600' },
+    ],
+  },
+  {
+    name: '7/14-1',
+    subscriptionCost: '5985',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '6300', total: '6300' },
+      { period: 3, name: '3 месяца (-5%)', price: '5985', total: '17955' },
+      { period: 6, name: '6 месяцев (-10%)', price: '5670', total: '34020' },
+      { period: 12, name: '12 месяцев (-15%)', price: '5355', total: '64260' },
+    ],
+  },
+  {
+    name: '6/12-1',
+    subscriptionCost: '4560',
+    additionalSizes: ['1.5м²', '1.5м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '4800', total: '4800' },
+      { period: 3, name: '3 месяца (-5%)', price: '4560', total: '13680' },
+      { period: 6, name: '6 месяцев (-10%)', price: '4320', total: '25920' },
+      { period: 12, name: '12 месяцев (-15%)', price: '4080', total: '48960' },
+    ],
+  },
+];

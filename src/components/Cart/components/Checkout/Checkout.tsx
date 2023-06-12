@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { A13, D211, M75, K38 } from '../../../../db/db';
+import {A13, D211, M75, K38, GEL} from '../../../../db/db';
 import { PromoModal } from '../PromoModal/PromoModal';
 import { CouponModal } from '../CouponModal/CouponModal';
 import {
@@ -36,6 +36,8 @@ export const Checkout: FC = () => {
         return K38;
       case 'A13':
         return A13;
+      case 'GEL':
+        return GEL;
     }
   }, [store.addressId]);
 
@@ -82,6 +84,10 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
+    if (store.addressId === 'GEL') {
+      return false;
+    }
+
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -102,7 +108,7 @@ export const Checkout: FC = () => {
   ]);
 
   const subscriptionButtonActive = useMemo(() => {
-    if (store.addressId === 'K38') {
+    if (store.addressId === 'K38' || store.addressId === 'GEL') {
       return false;
     }
     return (
