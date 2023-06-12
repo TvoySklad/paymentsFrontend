@@ -156,14 +156,14 @@ export const Checkout: FC = () => {
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
         await handleSendAlfaPaymentResultNotifications({
-          amount: result.depositAmount || '',
+          amount: (result.depositAmount / 100).toString() || '',
         }, true)
       } else {
         console.log('fail');
         setIsAlfaPaymentSuccessful(false);
         setIsPayResultModalOpen(true);
         await handleSendAlfaPaymentResultNotifications({
-          amount: result.depositAmount || '',
+          amount: (result.depositAmount / 100).toString() || '',
           errorCode: result.ErrorCode || '',
         }, false)
       }

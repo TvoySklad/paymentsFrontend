@@ -260,7 +260,7 @@ export const K38: AddressDataSchema = [
 
 export const GEL: AddressDataSchema = [
   {
-    name: '19/57-1',
+    name: '19/57',
     subscriptionCost: '13300',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -271,7 +271,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '12/36-1',
+    name: '12/36',
     subscriptionCost: '9120',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -282,7 +282,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '3/9-1',
+    name: '3/9',
     subscriptionCost: '3135',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -293,7 +293,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '2/6-1',
+    name: '2/6',
     subscriptionCost: '2090',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -304,7 +304,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '1,5/4,5-1',
+    name: '1,5/4,5',
     subscriptionCost: '1568',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -315,7 +315,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '1,5/1,5-1',
+    name: '1,5/1,5',
     subscriptionCost: '1283',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -326,7 +326,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '12/24-1',
+    name: '12/24',
     subscriptionCost: '9120',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -337,7 +337,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '10/20-1',
+    name: '10/20',
     subscriptionCost: '7600',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -348,7 +348,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '7/14-1',
+    name: '7/14',
     subscriptionCost: '5985',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
@@ -359,7 +359,7 @@ export const GEL: AddressDataSchema = [
     ],
   },
   {
-    name: '6/12-1',
+    name: '6/12',
     subscriptionCost: '4560',
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [

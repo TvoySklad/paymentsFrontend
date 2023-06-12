@@ -1,10 +1,10 @@
-import { FC, useMemo } from 'react';
+import {FC, useCallback, useMemo} from 'react';
 import cn from './BoxSizeBlock.module.scss';
-import { BoxSizeItem } from '../BoxSizeItem/BoxSizeItem';
-import { getStore } from '../../../../store/mainSlice/getStore';
+import {BoxSizeItem} from '../BoxSizeItem/BoxSizeItem';
+import {getStore} from '../../../../store/mainSlice/getStore';
 
 import {A13, D211, M75, K38, GEL} from '../../../../db/db';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 export const BoxSizeBlock: FC = () => {
   const store = useSelector(getStore);
@@ -24,23 +24,29 @@ export const BoxSizeBlock: FC = () => {
     }
   }, [store.addressId]);
 
+  const renderSizes = useCallback(() => {
+    return (
+      mainStorage.map((item, index) => {
+        return (
+          <BoxSizeItem
+            additionalSizes={item.additionalSizes}
+            additionalText={(item.additionalText && item.additionalText) || ''}
+            mainSize={item.name}
+            index={index}
+            key={item.periods[0].total + item.subscriptionCost + index}
+          />
+        );
+      })
+    )
+  }, [mainStorage])
+
   return (
     <div className={cn.BoxSizeBlock}>
       <h3 className={cn.boxSize__title}>
         Размер бокса<span className={cn.red}>*</span>
       </h3>
       <div className={cn.boxSizeItemsContainer}>
-        {mainStorage.map((item, index) => {
-          return (
-            <BoxSizeItem
-              additionalSizes={item.additionalSizes}
-              additionalText={(item.additionalText && item.additionalText) || ''}
-              mainSize={item.name}
-              index={index}
-              key={item.periods[0].total}
-            />
-          );
-        })}
+        {renderSizes()}
       </div>
     </div>
   );
