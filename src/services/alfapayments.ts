@@ -20,7 +20,6 @@ export const createOrder = async (sum: number, email: string, phone: string) => 
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      withCredentials: true
     });
 
     console.log(response.data);
@@ -52,7 +51,6 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
-      withCredentials: true
     });
 
     console.log(response.data);

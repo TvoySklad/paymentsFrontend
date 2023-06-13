@@ -262,7 +262,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '19/57',
     subscriptionCost: '13300',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['19м²', '57м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '13300', total: '13300' },
       { period: 3, name: '3 месяца (-5%)', price: '12635', total: '37905' },
@@ -273,7 +273,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '12/36',
     subscriptionCost: '9120',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['12м²', '36м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '9600', total: '9600' },
       { period: 3, name: '3 месяца (-5%)', price: '9120', total: '27360' },
@@ -284,7 +284,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '3/9',
     subscriptionCost: '3135',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['3м²', '9м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '3300', total: '3300' },
       { period: 3, name: '3 месяца (-5%)', price: '3135', total: '9405' },
@@ -295,7 +295,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '2/6',
     subscriptionCost: '2090',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['2м²', '6м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '2200', total: '2200' },
       { period: 3, name: '3 месяца (-5%)', price: '2090', total: '6270' },
@@ -306,7 +306,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '1,5/4,5',
     subscriptionCost: '1568',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['1.5м²', '4.5м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1650', total: '1650' },
       { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4704' },
@@ -328,7 +328,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '12/24',
     subscriptionCost: '9120',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['12м²', '24м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '9600', total: '9600' },
       { period: 3, name: '3 месяца (-5%)', price: '9120', total: '27360' },
@@ -339,7 +339,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '10/20',
     subscriptionCost: '7600',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['10м²', '20м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '8000', total: '8000' },
       { period: 3, name: '3 месяца (-5%)', price: '7600', total: '22800' },
@@ -350,7 +350,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '7/14',
     subscriptionCost: '5985',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['7м²', '14м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '6300', total: '6300' },
       { period: 3, name: '3 месяца (-5%)', price: '5985', total: '17955' },
@@ -361,7 +361,7 @@ export const GEL: AddressDataSchema = [
   {
     name: '6/12',
     subscriptionCost: '4560',
-    additionalSizes: ['1.5м²', '1.5м³'],
+    additionalSizes: ['6м²', '12м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '4800', total: '4800' },
       { period: 3, name: '3 месяца (-5%)', price: '4560', total: '13680' },
