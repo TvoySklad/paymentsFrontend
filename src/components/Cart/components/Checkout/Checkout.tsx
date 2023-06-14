@@ -84,7 +84,7 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (store.addressId === 'GEL') {
+    if (store.addressId === 'GEL' || store.addressId === 'K38') {
       return false;
     }
 
@@ -98,6 +98,7 @@ export const Checkout: FC = () => {
       store.userPhone.length > 0
     );
   }, [
+    store.addressId,
     store.prolongContract,
     store.prolongBoxNumber,
     store.address,
