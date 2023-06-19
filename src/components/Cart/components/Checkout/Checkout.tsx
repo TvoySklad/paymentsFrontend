@@ -67,7 +67,8 @@ export const Checkout: FC = () => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      return Math.floor((totalSum * store.promoSum) - store.couponSum);
+      const sum = Math.floor((totalSum * store.promoSum) - store.couponSum);
+      return sum >= 0 ? sum : 0
     }
     return 0;
   }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.couponSum]);
