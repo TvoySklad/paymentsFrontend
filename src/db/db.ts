@@ -7,9 +7,9 @@ export const M75: AddressDataSchema = [
     additionalSizes: ['3м²', '9м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '3000', total: '3000' },
-      { period: 3, name: '3 месяца (-10%)', price: '2700', total: '8100' },
-      { period: 6, name: '6 месяцев (-15%)', price: '2550', total: '15300' },
-      { period: 12, name: '12 месяцев (-20%)', price: '2 00', total: '28800' },
+      { period: 3, name: '3 месяца (-5%)', price: '2850', total: '8550' },
+      { period: 6, name: '6 месяцев (-10%)', price: '2700', total: '16200' },
+      { period: 12, name: '12 месяцев (-15%)', price: '2550', total: '30600' },
     ],
   },
   {
@@ -18,9 +18,9 @@ export const M75: AddressDataSchema = [
     additionalSizes: ['5м²', '13м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '4000', total: '4000' },
-      { period: 3, name: '3 месяца (-10%)', price: '3600', total: '10800' },
-      { period: 6, name: '6 месяцев (-15%)', price: '3400', total: '20400' },
-      { period: 12, name: '12 месяцев (-20%)', price: '3200', total: '38400' },
+      { period: 3, name: '3 месяца (-5%)', price: '3800', total: '11400' },
+      { period: 6, name: '6 месяцев (-10%)', price: '3600', total: '21600' },
+      { period: 12, name: '12 месяцев (-15%)', price: '3400', total: '40800' },
     ],
   },
   {
@@ -28,10 +28,10 @@ export const M75: AddressDataSchema = [
     subscriptionCost: '5400',
     additionalSizes: ['10м²', '27м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '6000', total: '6000' },
-      { period: 3, name: '3 месяца (-10%)', price: '5400', total: '16200' },
-      { period: 6, name: '6 месяцев (-15%)', price: '5100', total: '30600' },
-      { period: 12, name: '12 месяцев (-20%)', price: '4800', total: '57600' },
+      { period: 1, name: '1 месяц', price: '7000', total: '7000' },
+      { period: 3, name: '3 месяца (-5%)', price: '6650', total: '19950' },
+      { period: 6, name: '6 месяцев (-10%)', price: '6300', total: '37800' },
+      { period: 12, name: '12 месяцев (-15%)', price: '5950', total: '71400' },
     ],
   },
   {
@@ -39,10 +39,10 @@ export const M75: AddressDataSchema = [
     subscriptionCost: '7200',
     additionalSizes: ['15м²', '38м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '8000', total: '8000' },
-      { period: 3, name: '3 месяца (-10%)', price: '7200', total: '21600' },
-      { period: 6, name: '6 месяцев (-15%)', price: '6800', total: '40800' },
-      { period: 12, name: '12 месяцев (-20%)', price: '6400', total: '76800' },
+      { period: 1, name: '1 месяц', price: '9000', total: '9000' },
+      { period: 3, name: '3 месяца (-5%)', price: '8550', total: '25650' },
+      { period: 6, name: '6 месяцев (-10%)', price: '8100', total: '48600' },
+      { period: 12, name: '12 месяцев (-15%)', price: '7650', total: '91800' },
     ],
   },
 ];
@@ -55,9 +55,9 @@ export const D211: AddressDataSchema = [
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1350', total: '1350' },
-      { period: 3, name: '3 месяца (-5%)', price: '1283', total: '3847,50' },
+      { period: 3, name: '3 месяца (-5%)', price: '1283', total: '3849' },
       { period: 6, name: '6 месяцев (-10%)', price: '1215', total: '7290' },
-      { period: 12, name: '12 месяцев (-15%)', price: '1148', total: '13770' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1148', total: '13776' },
     ],
   },
   {
@@ -66,9 +66,9 @@ export const D211: AddressDataSchema = [
     additionalSizes: ['1.5м²', '3м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1650', total: '1650' },
-      { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4702,50' },
+      { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4704' },
       { period: 6, name: '6 месяцев (-10%)', price: '1485', total: '8910' },
-      { period: 12, name: '12 месяцев (-15%)', price: '1403', total: '16830' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1403', total: '16836' },
     ],
   },
   {
@@ -90,7 +90,7 @@ export const D211: AddressDataSchema = [
       { period: 1, name: '1 месяц', price: '3300', total: '3300' },
       { period: 3, name: '3 месяца (-5%)', price: '3135', total: '9405' },
       { period: 6, name: '6 месяцев (-10%)', price: '2970', total: '17820' },
-      { period: 12, name: '12 месяцев (-15%)', price: '2805', total: '33600' },
+      { period: 12, name: '12 месяцев (-15%)', price: '2805', total: '33660' },
     ],
   },
   {
@@ -135,9 +135,9 @@ export const A13: AddressDataSchema = [
     additionalSizes: ['1м²', '1м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '650', total: '650' },
-      { period: 3, name: '3 месяца (-10%)', price: '585', total: '1755' },
-      { period: 6, name: '6 месяцев (-15%)', price: '552', total: '3315' },
-      { period: 12, name: '12 месяцев (-20%)', price: '520', total: '6240' },
+      { period: 3, name: '3 месяца (-5%)', price: '618', total: '1854' },
+      { period: 6, name: '6 месяцев (-10%)', price: '585', total: '3510' },
+      { period: 12, name: '12 месяцев (-15%)', price: '553', total: '6636' },
     ],
   },
   {
@@ -145,10 +145,10 @@ export const A13: AddressDataSchema = [
     subscriptionCost: '1755',
     additionalSizes: ['3м²', '8м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '1950', total: '1950' },
-      { period: 3, name: '3 месяца (-10%)', price: '1755', total: '5265' },
-      { period: 6, name: '6 месяцев (-15%)', price: '1657', total: '9942' },
-      { period: 12, name: '12 месяцев (-20%)', price: '1560', total: '18720' },
+      { period: 1, name: '1 месяц', price: '2100', total: '2100' },
+      { period: 3, name: '3 месяца (-5%)', price: '1995', total: '5985' },
+      { period: 6, name: '6 месяцев (-10%)', price: '1890', total: '11340' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1785', total: '21420' },
     ],
   },
   {
@@ -156,10 +156,10 @@ export const A13: AddressDataSchema = [
     subscriptionCost: '2925',
     additionalSizes: ['5м²', '13м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '3250', total: '3250' },
-      { period: 3, name: '3 месяца (-10%)', price: '2925', total: '8775' },
-      { period: 6, name: '6 месяцев (-15%)', price: '2762', total: '16572' },
-      { period: 12, name: '12 месяцев (-20%)', price: '2600', total: '31200' },
+      { period: 1, name: '1 месяц', price: '3500', total: '3500' },
+      { period: 3, name: '3 месяца (-5%)', price: '3325', total: '9975' },
+      { period: 6, name: '6 месяцев (-10%)', price: '3150', total: '18900' },
+      { period: 12, name: '12 месяцев (-15%)', price: '2975', total: '35700' },
     ],
   },
   {
@@ -167,10 +167,10 @@ export const A13: AddressDataSchema = [
     subscriptionCost: '5400',
     additionalSizes: ['10м²', '27м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '5950', total: '5950' },
-      { period: 3, name: '3 месяца (-10%)', price: '5400', total: '16200' },
-      { period: 6, name: '6 месяцев (-15%)', price: '5100', total: '30600' },
-      { period: 12, name: '12 месяцев (-20%)', price: '4800', total: '57600' },
+      { period: 1, name: '1 месяц', price: '6500', total: '6500' },
+      { period: 3, name: '3 месяца (-5%)', price: '6175', total: '18525' },
+      { period: 6, name: '6 месяцев (-10%)', price: '5850', total: '35100' },
+      { period: 12, name: '12 месяцев (-15%)', price: '5525', total: '66300' },
     ],
   },
 ];
@@ -183,9 +183,9 @@ export const K38: AddressDataSchema = [
     additionalSizes: ['1.5м²', '1.5м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1350', total: '1350' },
-      { period: 3, name: '3 месяца (-5%)', price: '1283', total: '3847,50' },
+      { period: 3, name: '3 месяца (-5%)', price: '1283', total: '3849' },
       { period: 6, name: '6 месяцев (-10%)', price: '1215', total: '7290' },
-      { period: 12, name: '12 месяцев (-15%)', price: '1148', total: '13770' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1148', total: '13776' },
     ],
   },
   {
@@ -195,9 +195,9 @@ export const K38: AddressDataSchema = [
     additionalSizes: ['1.5м²', '3м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '1650', total: '1650' },
-      { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4702,50' },
+      { period: 3, name: '3 месяца (-5%)', price: '1568', total: '4704' },
       { period: 6, name: '6 месяцев (-10%)', price: '1485', total: '8910' },
-      { period: 12, name: '12 месяцев (-15%)', price: '1403', total: '16830' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1403', total: '16836' },
     ],
   },
   {
@@ -227,7 +227,7 @@ export const K38: AddressDataSchema = [
     subscriptionCost: '3135',
     additionalSizes: ['3м²', '9м³'],
     periods: [
-      { period: 1, name: '1 месяц', price: '3300', total: '3000' },
+      { period: 1, name: '1 месяц', price: '3300', total: '3300' },
       { period: 3, name: '3 месяца (-5%)', price: '3135', total: '9405' },
       { period: 6, name: '6 месяцев (-10%)', price: '2970', total: '17820' },
       { period: 12, name: '12 месяцев (-15%)', price: '2805', total: '33660' },
