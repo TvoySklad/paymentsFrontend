@@ -18,6 +18,7 @@ const initialState: StoreSchema = {
   promo: '',
   promoActivated: false,
   promoSum: 1,
+  promoWithValue: 0,
   coupon: '',
   couponActivated: false,
   couponActivatedValue: '',
@@ -80,6 +81,9 @@ export const storeSlice = createSlice({
     },
     setPromoSum: (state, action) => {
       state.promoSum = action.payload;
+    },
+    setPromoWithValueSum: (state, action) => {
+      state.promoWithValue = action.payload;
     },
     setCoupon: (state, action) => {
       state.coupon = action.payload;

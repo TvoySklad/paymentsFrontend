@@ -20,6 +20,9 @@ export const AddressDropdown: FC = () => {
     dispatch(actions.setCity(evt.target.dataset.city));
     dispatch(actions.setAddress(evt.target.innerText));
     dispatch(actions.setAddressId(evt.target.id));
+    dispatch(actions.setPromoActivated(false));
+    dispatch(actions.setPromoWithValueSum(0));
+    dispatch(actions.setPromoSum(1));
     toggleDropdown();
   };
 

@@ -23,6 +23,7 @@ export interface StoreSchema {
   promo: string;
   promoActivated: boolean;
   promoSum: number;
+  promoWithValue: number;
   coupon: string;
   couponActivated: boolean;
   couponActivatedValue: string;

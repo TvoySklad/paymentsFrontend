@@ -28,6 +28,11 @@
 
 .selected {
   border: 1px solid #80b36c;
+  background-color: #80b36c;
+}
+
+.selectedText {
+  color: #ffffff;
 }
 
 .mainSizeContainer {
@@ -91,3 +96,10 @@
     }
   }
 }
+
+.selectedSizeItem {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  opacity: 1;
+}
+

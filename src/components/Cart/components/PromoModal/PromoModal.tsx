@@ -4,7 +4,7 @@ import { Input } from 'components/MainForm/components/Input/Input';
 import { actions } from 'store/mainSlice/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStore } from 'store/mainSlice/getStore';
-import { promoList } from 'db/promoList';
+import {promoForSumList, promoList} from 'db/promoList';
 
 interface PromoModalProps {
   isOpen: boolean;
@@ -36,6 +36,7 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
 
   const checkPromo = useCallback(() => {
     let match = promoList.find((item) => item.name === store.promo);
+    let matchOnValuePromo = promoForSumList.find((item) => item.name === store.promo);
     if (match?.name === 'НОВОРОССИЙСК' && store.city !== 'Новороссийск') {
       match = undefined;
     }
@@ -47,10 +48,21 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
       handleModalClose();
       return;
     }
+    if (matchOnValuePromo?.name === 'Куникова1500' && store.addressId !== 'K38') {
+      matchOnValuePromo = undefined;
+    }
+    if (matchOnValuePromo) {
+      dispatch(actions.setPromoActivated(true));
+      dispatch(actions.setPromoWithValueSum(matchOnValuePromo.value));
+      setError('');
+      setPromoValue('');
+      handleModalClose();
+      return;
+    }
     dispatch(actions.setPromoActivated(false));
-    dispatch(actions.setPromoSum(null));
+    dispatch(actions.setPromoSum(0));
     setError('Такого промокода не существует');
-  }, [handleModalClose, store.promo, dispatch, store.city]);
+  }, [handleModalClose, store.promo, dispatch, store.city, store.addressId]);
 
   const onKeyDown = useCallback(
     (evt: KeyboardEvent) => {

@@ -67,11 +67,11 @@ export const Checkout: FC = () => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      const sum = Math.floor((totalSum * store.promoSum) - store.couponSum);
+      const sum = Math.floor((totalSum * store.promoSum) - store.couponSum - store.promoWithValue);
       return sum >= 0 ? sum : 0
     }
     return 0;
-  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.couponSum]);
+  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.promoWithValue, store.couponSum]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
@@ -353,7 +353,7 @@ export const Checkout: FC = () => {
           <div className={cn.summaryBlock}>
             <span className={cn.summaryBlock__title}>Промокод</span>
             <span
-              className={cn.summaryBlock__value}>{(totalSum - (totalSum * store.promoSum)).toString()}₽</span>
+              className={cn.summaryBlock__value}>{((totalSum - (totalSum * store.promoSum)) + store.promoWithValue).toString()}₽</span>
           </div>
         )}
         {store.couponActivated && (

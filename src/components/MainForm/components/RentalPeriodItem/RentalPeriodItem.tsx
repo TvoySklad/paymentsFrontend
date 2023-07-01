@@ -22,10 +22,10 @@ export const RentalPeriodItem: FC<RentalPeriodItemProps> = (props) => {
     dispatch(actions.setRentalPeriod(text));
     dispatch(actions.setRentalPeriodIndex(index));
   }, [])
-  
+
   return (
-    <div data-index={index} className={[cn.RentalPeriodItem, selected ? cn.selected : ''].join(' ')} onClick={handleClick}>
-      <span className={cn.period__text}>{text}</span>
+    <div data-index={index}  className={[cn.RentalPeriodItem, selected ? cn.selected : ''].join(' ')} onClick={handleClick}>
+      <span className={[cn.period__text, selected ? cn.selectedText : ''].join(' ')}>{text}</span>
     </div>
   );
 };

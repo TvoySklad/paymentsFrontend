@@ -33,12 +33,12 @@ export const BoxSizeItem: FC<BoxSizeItemProps> = (props) => {
       onClick={handleClick}
     >
       <div className={cn.mainSizeContainer}>
-        {additionalText.length > 0 && <span className={cn.additionalText}>{additionalText}</span>}
-        <span className={cn.mainSize}>{mainSize}</span>
+        {additionalText.length > 0 && <span className={[cn.additionalText, selected ? cn.selectedText : ''].join(' ')}>{additionalText}</span>}
+        <span className={[cn.mainSize, selected ? cn.selectedText : ''].join(' ')}>{mainSize}</span>
       </div>
       <div className={cn.additionalSizesConationer}>
         {additionalSizes.map((item) => (
-          <span className={cn.additionalSizeItem} key={item}>{item}</span>
+          <span className={[cn.additionalSizeItem, selected ? cn.selectedSizeItem : ''].join(' ')} key={item}>{item}</span>
         ))}
       </div>
     </div>
