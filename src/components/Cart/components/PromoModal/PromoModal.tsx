@@ -40,6 +40,9 @@ export const PromoModal: FC<PromoModalProps> = (props) => {
     if (match?.name === 'НОВОРОССИЙСК' && store.city !== 'Новороссийск') {
       match = undefined;
     }
+    if (match?.name === '2022' && store.city !== 'Курск') {
+      match = undefined;
+    }
     if (match) {
       dispatch(actions.setPromoActivated(true));
       dispatch(actions.setPromoSum(match.value));
