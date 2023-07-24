@@ -169,6 +169,10 @@ export const Checkout: FC = () => {
           errorCode: result.ErrorCode || '',
         }, false)
       }
+
+      setTimeout(() => {
+        window.location.href = 'https://pay.tvoysklad.com';
+      }, 2500);
     };
 
     checkUrlParams();
