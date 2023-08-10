@@ -85,10 +85,6 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (store.addressId === 'GEL') {
-      return false;
-    }
-
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -186,14 +182,14 @@ export const Checkout: FC = () => {
     if (!!payButtonActive) {
       switch (store.paymentType) {
         case 'Reccurent':
-          if (store.addressId === 'K38') {
+          if (store.addressId === 'K38' || store.addressId === 'GEL') {
             handlePayAlfa();
             return;
           }
           payReccurentCloudPayments();
           break;
         case 'Full':
-          if (store.addressId === 'K38') {
+          if (store.addressId === 'K38' || store.addressId === 'GEL') {
             handlePayAlfa();
             return;
           }
@@ -212,7 +208,7 @@ export const Checkout: FC = () => {
       window.location.href = response.formUrl;
 
     } else {
-      const response = await createOrder(toPaySum, store.userEmail, store.userPhone);
+      const response = await createOrder(toPaySum, store.userEmail, store.userPhone, store.addressId);
       if (response?.formUrl) {
         await handleSendManagerNotifications(store, true);
         window.location.href = response.formUrl;

@@ -1,13 +1,14 @@
 import axios from 'axios';
-import { generateOrderNumber } from '../utils/foramatters';
+import {generateOrderNumber, getCredsForAlfa} from '../utils/foramatters';
 
-export const createOrder = async (sum: number, email: string, phone: string) => {
+export const createOrder = async (sum: number, email: string, phone: string, addressId: string) => {
   const orderNumber = generateOrderNumber(phone);
+  const { username, password } = getCredsForAlfa(addressId);
   try {
     const response = await axios.post(`https://apitvoyskladcom.us.to/proxy/register`, {}, {
       params: {
-        userName: 'r-tvoysklad-api',
-        password: 'Dubai203050',
+        userName: username,
+        password: password,
         orderNumber: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
         amount: sum * 100,

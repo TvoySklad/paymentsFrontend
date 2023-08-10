@@ -60,3 +60,14 @@ export const generateOrderNumber = (phone: string) => {
   var result = dd + mm + yy + randomNumber + lastFourNumDigits;
   return result;
 }
+
+export const getCredsForAlfa = (value: string) => {
+  switch (value) {
+    case 'GEL':
+      return {username: 'tvoysklad_agr_dikanaa-api', password: ''}
+    case 'K38':
+      return {username: 'r-tvoysklad-api', password: 'Dubai203050'}
+    default:
+      return {username: '', password: ''}
+  }
+}
