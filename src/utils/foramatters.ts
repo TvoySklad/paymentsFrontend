@@ -20,7 +20,7 @@ export const formatNotificationMessage = (data: StoreSchema, isAlpha: boolean = 
     Promocode: ${data.promoActivated ? data.promoSum + data.promo : 'no-promo'}
     CouponActivated: ${data.couponActivated ? data.couponSum + data.coupon : 'no-coupon'}
     
-    ${isAlpha ? 'Оплата по Альфе на Куникова - пока не прошла' : 'Оплата прошла'}
+    ${isAlpha ? 'Оплата по Альфе - пока не прошла' : 'Оплата прошла'}
   `;
   return result;
 };
@@ -64,9 +64,9 @@ export const generateOrderNumber = (phone: string) => {
 export const getCredsForAlfa = (value: string) => {
   switch (value) {
     case 'GEL':
-      return {username: 'tvoysklad_agr_dikanaa-api', password: ''}
+      return {username: 'tvoysklad_agr_dikanaa-api', password: 'Dikan1408@23!', link: 'https://pay.alfabank.ru/payment/rest'}
     case 'K38':
-      return {username: 'r-tvoysklad-api', password: 'Dubai203050'}
+      return {username: 'r-tvoysklad-api', password: 'Dubai203050', link: 'https://payment.alfabank.ru/payment/rest'}
     default:
       return {username: '', password: ''}
   }

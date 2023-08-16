@@ -147,8 +147,9 @@ export const Checkout: FC = () => {
     if (!hasParams) return;
 
     const checkUrlParams = async () => {
-      const paramValue = params.get('orderId');
-      const result = await getOrderStatus(paramValue);
+      const orderId = params.get('orderId');
+      const addressId = params.get('addressId');
+      const result = await getOrderStatus(orderId, addressId);
       if (result.OrderStatus === 1 || result.OrderStatus === 2) {
         console.log('success');
         setIsAlfaPaymentSuccessful(true);
@@ -166,9 +167,9 @@ export const Checkout: FC = () => {
         }, false)
       }
 
-      setTimeout(() => {
-        window.location.href = 'https://pay.tvoysklad.com';
-      }, 2500);
+      // setTimeout(() => {
+      //   window.location.href = 'https://pay.tvoysklad.com';
+      // }, 2500);
     };
 
     checkUrlParams();

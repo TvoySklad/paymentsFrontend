@@ -3,7 +3,7 @@ import {generateOrderNumber, getCredsForAlfa} from '../utils/foramatters';
 
 export const createOrder = async (sum: number, email: string, phone: string, addressId: string) => {
   const orderNumber = generateOrderNumber(phone);
-  const { username, password } = getCredsForAlfa(addressId);
+  const { username, password, link } = getCredsForAlfa(addressId);
   try {
     const response = await axios.post(`https://apitvoyskladcom.us.to/proxy/register`, {}, {
       params: {
@@ -12,11 +12,12 @@ export const createOrder = async (sum: number, email: string, phone: string, add
         orderNumber: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
         amount: sum * 100,
-        returnUrl: 'https://pay.tvoysklad.com',
-        failUrl: 'https://pay.tvoysklad.com',
+        returnUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
+        failUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
         email,
         phone,
-        clientId: orderNumber
+        clientId: orderNumber,
+        requestLink: link
       },
       headers: {
         'Access-Control-Allow-Origin': '*'
@@ -64,13 +65,16 @@ export const createOrderReccurent = async (sum: number, email: string, phone: st
   }
 };
 
-export const getOrderStatus = async (orderId: string) => {
+export const getOrderStatus = async (orderId: string, addressId: string) => {
+  const { username, password, link } = getCredsForAlfa(addressId);
+
   try {
     const response = await axios.post(`https://apitvoyskladcom.us.to/proxy/check`, {}, {
       params: {
-        userName: 'r-tvoysklad-api',
-        password: 'Dubai203050',
-        orderId: orderId.toString()
+        userName: username,
+        password: password,
+        orderId: orderId.toString(),
+        link: link
       },
     });
 
