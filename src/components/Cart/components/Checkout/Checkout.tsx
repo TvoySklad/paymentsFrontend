@@ -167,9 +167,9 @@ export const Checkout: FC = () => {
         }, false)
       }
 
-      // setTimeout(() => {
-      //   window.location.href = 'https://pay.tvoysklad.com';
-      // }, 2500);
+      setTimeout(() => {
+        window.location.href = 'https://pay.tvoysklad.com';
+      }, 4500);
     };
 
     checkUrlParams();
