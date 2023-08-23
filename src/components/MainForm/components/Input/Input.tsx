@@ -60,7 +60,7 @@ export const Input: FC<InputProps> = (props) => {
           disabled={disabled}
           required={required}
           id={id}
-          className={cn.input}
+          className={[cn.input, className].join(' ')}
           type={inputType}
           placeholder={placeholder}
           min={min}
@@ -70,7 +70,7 @@ export const Input: FC<InputProps> = (props) => {
         <input
           required={required}
           id={id}
-          className={cn.input}
+          className={[cn.input, className].join(' ')}
           type={inputType}
           placeholder={placeholder}
           value={value}

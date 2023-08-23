@@ -3,8 +3,6 @@ import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
 import {A13, D211, M75, K38, GEL} from '../../../../db/db';
-import { PromoModal } from '../PromoModal/PromoModal';
-import { CouponModal } from '../CouponModal/CouponModal';
 import {
   handleSendAlfaPaymentResultNotifications,
   handleSendManagerNotifications
@@ -18,13 +16,11 @@ import {
   getOrderStatus
 } from '../../../../services/alfapayments';
 import { PayResult } from '../PaymentResultModal/PayResult';
+import {PromoInput} from "../PromoInput/PromoInput";
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
   const dispatch = useDispatch<any>();
-
-  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
-  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
 
   const mainStorage = useMemo(() => {
     switch (store.addressId) {
@@ -126,16 +122,6 @@ export const Checkout: FC = () => {
     store.userPhone.length,
     store.addressId
   ]);
-
-  const handlePromoModalOpen = useCallback(() => {
-    window.scrollTo(0, 0);
-    setIsPromoModalOpen(true);
-  }, [store.couponId, store.couponActivatedValue]);
-
-  const handleCouponModalOpen = useCallback(() => {
-    window.scrollTo(0, 0);
-    setIsCouponModalOpen(true);
-  }, []);
 
   const [isPayResultModalOpen, setIsPayResultModalOpen] = useState(false);
   const [isAlfaPaymentSuccessful, setIsAlfaPaymentSuccessful] = useState(true);
@@ -334,12 +320,7 @@ export const Checkout: FC = () => {
   return (
     <div className={cn.Checkout}>
       <div className={cn.promoContainer}>
-        <button className={cn.promocodeBtn} onClick={handlePromoModalOpen}>
-          Ввести промокод
-        </button>
-        <button className={cn.couponeBtn} onClick={handleCouponModalOpen}>
-          Указать купон
-        </button>
+        <PromoInput />
       </div>
       <div className={cn.summaryContainer}>
         <div className={cn.summaryBlock}>
@@ -372,9 +353,6 @@ export const Checkout: FC = () => {
         <button className={cn.payButton} disabled={!payButtonActive} onClick={handlePayFull}>
           Оплатить
         </button>
-        {/*<button className={cn.payButton} disabled={false} onClick={handlePayAlfa}>*/}
-        {/* alfapay*/}
-        {/*</button>*/}
       </div>
       {subscriptionCost && (
         <div className={cn.subscription}>
@@ -394,8 +372,6 @@ export const Checkout: FC = () => {
           конфиденциальности.
         </a>
       </div>
-      <PromoModal isOpen={isPromoModalOpen} setIsOpen={setIsPromoModalOpen} />
-      <CouponModal isOpen={isCouponModalOpen} setIsOpen={setIsCouponModalOpen} />
       <PayResult isOpen={isPayResultModalOpen} setIsOpen={setIsPayResultModalOpen}
                  isSuccess={isAlfaPaymentSuccessful} />
     </div>
