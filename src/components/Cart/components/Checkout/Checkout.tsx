@@ -359,7 +359,7 @@ export const Checkout: FC = () => {
           <button
             className={cn.subscriptionButton}
             onClick={handlePayReccurent}
-            disabled={!subscriptionButtonActive}
+            disabled={true}
           >
             Оформить подписку за {subscriptionCost} ₽/мес
           </button>
