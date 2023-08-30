@@ -354,17 +354,17 @@ export const Checkout: FC = () => {
           Оплатить
         </button>
       </div>
-      {subscriptionCost && (
-        <div className={cn.subscription}>
-          <button
-            className={cn.subscriptionButton}
-            onClick={handlePayReccurent}
-            disabled={true}
-          >
-            Оформить подписку за {subscriptionCost} ₽/мес
-          </button>
-        </div>
-      )}
+      {/*{subscriptionCost && (*/}
+      {/*  <div className={cn.subscription}>*/}
+      {/*    <button*/}
+      {/*      className={cn.subscriptionButton}*/}
+      {/*      onClick={handlePayReccurent}*/}
+      {/*      disabled={true}*/}
+      {/*    >*/}
+      {/*      Оформить подписку за {subscriptionCost} ₽/мес*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*)}*/}
       <div className={cn.agreement}>
         <a className={cn.agreement__text} href='https://tvoysklad.com/privacy' target='blank'>
           Нажимая оплатить или оформить подписку, я даю свое согласие с условиями Оферты, а также с
