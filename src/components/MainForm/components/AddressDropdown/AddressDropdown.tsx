@@ -4,6 +4,7 @@ import triangle from '../../../../images/triangle.svg';
 import { actions } from '../../../../store/mainSlice/slice';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
+import {SAR_IS27} from "../../../../db/db";
 
 export const AddressDropdown: FC = () => {
   const dispatch = useDispatch();
@@ -80,7 +81,6 @@ export const AddressDropdown: FC = () => {
           >
             Ул Куникова 38-40
           </span>
-
         </div>
         <div className={cn.kurskBlock}>
           <h4 className={cn.dropdown__title}>Курск</h4>
@@ -97,6 +97,17 @@ export const AddressDropdown: FC = () => {
             data-city={'Геленджик'}
           >
             Ул Халтурина 32
+          </span>
+        </div>
+        <div className={cn.gelBlock}>
+          <h4 className={cn.dropdown__title}>Саратов</h4>
+          <span
+            id='SAR_IS27'
+            className={cn.dropdown__item}
+            onClick={setAddress}
+            data-city={'Саратов'}
+          >
+            Ул Н.В. Исаева, д. 27
           </span>
         </div>
       </div>

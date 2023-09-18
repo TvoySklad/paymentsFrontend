@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import {A13, D211, M75, K38, GEL} from '../../../../db/db';
+import {A13, D211, M75, K38, GEL, SAR_IS27} from '../../../../db/db';
 import {
   handleSendAlfaPaymentResultNotifications,
   handleSendManagerNotifications
@@ -34,6 +34,8 @@ export const Checkout: FC = () => {
         return A13;
       case 'GEL':
         return GEL;
+      case 'SAR_IS27':
+        return SAR_IS27;
     }
   }, [store.addressId]);
 
@@ -81,6 +83,8 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
+    if (store.addressId === 'SAR_IS27') return false;
+
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
@@ -176,11 +180,7 @@ export const Checkout: FC = () => {
           payReccurentCloudPayments();
           break;
         case 'Full':
-          if (store.addressId === 'K38' || store.addressId === 'GEL') {
             handlePayAlfa();
-            return;
-          }
-          payCloudPayments();
           break;
         default:
           break;

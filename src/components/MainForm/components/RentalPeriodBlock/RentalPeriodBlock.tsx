@@ -3,7 +3,7 @@ import cn from './RentalPeriodBlock.module.scss';
 import { RentalPeriodItem } from '../RentalPeriodItem/RentalPeriodItem';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useSelector } from 'react-redux';
-import {A13, D211, M75, K38, GEL} from '../../../../db/db';
+import {A13, D211, M75, K38, GEL, SAR_IS27} from '../../../../db/db';
 
 export const RentalPeriodBlock: FC = () => {
   const store = useSelector(getStore);
@@ -20,6 +20,8 @@ export const RentalPeriodBlock: FC = () => {
         return A13;
       case 'GEL':
         return GEL;
+      case 'SAR_IS27':
+        return SAR_IS27;
     }
   }, [store.addressId]);
 

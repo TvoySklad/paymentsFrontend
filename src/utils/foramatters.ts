@@ -68,6 +68,6 @@ export const getCredsForAlfa = (value: string) => {
     case 'K38':
       return {username: 'r-tvoysklad-api', password: 'Dubai203050', link: 'https://payment.alfabank.ru/payment/rest'}
     default:
-      return {username: '', password: ''}
+      return {username: 'tvoysklad_agr-api', password: 'TvOySkld@%!02380', link: 'https://pay.alfabank.ru/payment/rest'}
   }
 }
