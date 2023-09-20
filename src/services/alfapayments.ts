@@ -12,7 +12,7 @@ export const createOrder = async (sum: number, email: string, phone: string, add
         orderNumber: orderNumber.toString(),
         bindingId: phone.replace(/[^0-9]+/g, ''),
         amount: sum * 100,
-        returnUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
+        returnUrl: `https://pay.tvoysklad.com/?addressId=${addressId}`,
         failUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
         email,
         phone,

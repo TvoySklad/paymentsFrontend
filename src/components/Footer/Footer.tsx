@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react';
 import cn from './Footer.module.scss';
-import logo from '../../images/logo.svg';
 import { useSelector } from 'react-redux';
 import { getStore } from '../../store/mainSlice/getStore';
 
