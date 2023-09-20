@@ -7,12 +7,10 @@ import {
   handleSendAlfaPaymentResultNotifications,
   handleSendManagerNotifications
 } from '../../../../api/notificationsAPI';
-import { formatNotificationMessage, formatPaymentMessage } from 'utils/foramatters';
 import { actions } from '../../../../store/mainSlice/slice';
-import { updateCoupon } from '../../../../services/couponsService';
+
 import {
   createOrder,
-  createOrderReccurent,
   getOrderStatus
 } from '../../../../services/alfapayments';
 import { PayResult } from '../PaymentResultModal/PayResult';
@@ -105,28 +103,6 @@ export const Checkout: FC = () => {
     store.userPhone
   ]);
 
-  const subscriptionButtonActive = useMemo(() => {
-    if (store.addressId === 'K38' || store.addressId === 'GEL') {
-      return false;
-    }
-    return (
-      store.prolongContract.length > 0 &&
-      store.prolongBoxNumber.length > 0 &&
-      store.address.length > 0 &&
-      store.boxSize.length > 0 &&
-      store.userName.length > 0 &&
-      store.userPhone.length > 0
-    );
-  }, [
-    store.address.length,
-    store.boxSize.length,
-    store.prolongBoxNumber.length,
-    store.prolongContract.length,
-    store.userName.length,
-    store.userPhone.length,
-    store.addressId
-  ]);
-
   const [isPayResultModalOpen, setIsPayResultModalOpen] = useState(false);
   const [isAlfaPaymentSuccessful, setIsAlfaPaymentSuccessful] = useState(true);
 
@@ -177,7 +153,6 @@ export const Checkout: FC = () => {
             handlePayAlfa();
             return;
           }
-          payReccurentCloudPayments();
           break;
         case 'Full':
             handlePayAlfa();
@@ -191,131 +166,19 @@ export const Checkout: FC = () => {
 
   const handlePayAlfa = async () => {
     if (store.paymentType === 'Reccurent') {
-      const response = await createOrderReccurent(subscriptionCost, store.userEmail, store.userPhone);
-      window.location.href = response.formUrl;
-
+      return;
     } else {
       const response = await createOrder(toPaySum, store.userEmail, store.userPhone, store.addressId);
       if (response?.formUrl) {
         await handleSendManagerNotifications(store, true);
         window.location.href = response.formUrl;
       }
-
     }
   };
 
   const handlePayFull = () => {
     dispatch(actions.setPaymentType('Full'));
   };
-
-  const handlePayReccurent = () => {
-    dispatch(actions.setPaymentType('Reccurent'));
-  };
-
-  function payCloudPayments() {
-    //@ts-ignore
-    var widget = new cp.CloudPayments({
-      language: 'ru-RU'
-    });
-    var data = {
-      data: JSON.stringify(formatNotificationMessage(store))
-    };
-    widget.pay(
-      'auth', // или 'charge'
-      {
-        //options
-        // publicId: 'test_api_00000000000000000000002', //id из личного кабинета
-        publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
-        description: formatPaymentMessage(store), //назначение
-        amount: toPaySum, //сумма
-        currency: 'RUB', //валюта
-        accountId: '', //идентификатор плательщика (необязательно)
-        invoiceId: '', //номер заказа  (необязательно)
-        skin: 'modern', //дизайн виджета (необязательно)
-        autoClose: 3,
-        data: data,
-        email: store.userEmail || ''
-      },
-      {
-        onSuccess: function(options: any) {
-          handleSendManagerNotifications(store);
-          // @ts-ignore
-          !!store.couponActivatedValue && dispatch(updateCoupon(store.couponActivatedValue));
-        },
-        onFail: function(reason: any, options: any) {
-          console.log('payment fail');
-        },
-        onComplete: function(paymentResult: any, options: any) {
-          //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-          //например вызов вашей аналитики Facebook Pixel
-        }
-      }
-    );
-  }
-
-  function payReccurentCloudPayments() {
-    //@ts-ignore
-    var widget = new cp.CloudPayments();
-    var receipt = {
-      Items: [
-        //товарные позиции
-        {
-          label: 'Подписка на аренду бокса', //наименование товара
-          price: subscriptionCost, //цена
-          quantity: 1.0, //количество
-          amount: subscriptionCost, //сумма
-          vat: 20, //ставка НДС
-          method: 0, // тег-1214 признак способа расчета - признак способа расчета
-          object: 0 // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
-        }
-      ],
-      taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
-      email: 'user@example.com', //e-mail покупателя, если нужно отправить письмо с чеком
-      phone: '', //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
-      isBso: false, //чек является бланком строгой отчетности
-      amounts: {
-        electronic: subscriptionCost, // Сумма оплаты электронными деньгами
-        advancePayment: 0.0, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
-        credit: 0.0, // Сумма постоплатой(в кредит) (2 знака после запятой)
-        provision: 0.0 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
-      }
-    };
-
-    var data = {
-      data: formatNotificationMessage(store)
-    };
-    //@ts-ignore
-    data.CloudPayments = {
-      CustomerReceipt: receipt, //чек для первого платежа
-      recurrent: {
-        interval: 'Month',
-        period: 1,
-        customerReceipt: receipt //чек для регулярных платежей
-      }
-    }; //создание ежемесячной подписки
-
-    widget.charge(
-      {
-        // options
-        publicId: 'pk_25afc22e9cfb18d73223578107140', //id из личного кабинета
-        description: 'Подписка на аренду склада', //назначение
-        amount: subscriptionCost, //сумма
-        currency: 'RUB', //валюта
-        invoiceId: '', //номер заказа  (необязательно)
-        accountId: `${store.userPhone} ${Date.now()}`, //идентификатор плательщика (обязательно для создания подписки)
-        data: data,
-        email: store.userEmail || ''
-      },
-      function(options: any) {
-        // success
-        handleSendManagerNotifications(store);
-      },
-      function(reason: any, options: any) {
-        // fail
-        //действие при неуспешной оплате
-      }
-    );
-  }
 
   return (
     <div className={cn.Checkout}>
@@ -354,17 +217,6 @@ export const Checkout: FC = () => {
           Оплатить
         </button>
       </div>
-      {/*{subscriptionCost && (*/}
-      {/*  <div className={cn.subscription}>*/}
-      {/*    <button*/}
-      {/*      className={cn.subscriptionButton}*/}
-      {/*      onClick={handlePayReccurent}*/}
-      {/*      disabled={true}*/}
-      {/*    >*/}
-      {/*      Оформить подписку за {subscriptionCost} ₽/мес*/}
-      {/*    </button>*/}
-      {/*  </div>*/}
-      {/*)}*/}
       <div className={cn.agreement}>
         <a className={cn.agreement__text} href='https://tvoysklad.com/privacy' target='blank'>
           Нажимая оплатить или оформить подписку, я даю свое согласие с условиями Оферты, а также с
