@@ -82,23 +82,15 @@
   max-height: 1000px;
 }
 
-.novorossBlock {
+.cityBlock {
   padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
   border-bottom: 1px solid #e4e4e4;
-  display: flex;
-  flex-direction: column;
 }
 
-.kurskBlock {
-  padding-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-.gelBlock {
-  padding-bottom: 16px;
-  display: flex;
-  flex-direction: column;
+.noBorderBot {
+  border-bottom: none;
 }
 
 .dropdown__title {

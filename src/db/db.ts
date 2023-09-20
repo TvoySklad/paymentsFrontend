@@ -384,7 +384,7 @@ export const GEL: AddressDataSchema = [
 
 export const SAR_IS27: AddressDataSchema = [
   {
-    name: '1,0м²',
+    name: '1м²',
     subscriptionCost: '855',
     additionalSizes: ['1м²', '1.5м³'],
     periods: [
@@ -411,7 +411,7 @@ export const SAR_IS27: AddressDataSchema = [
     additionalSizes: ['5м²', '15м³'],
     periods: [
       { period: 1, name: '1 месяц', price: '4750', total: '4750' },
-      { period: 3, name: '3 месяца (-5%)', price: '4513', total: '13537.5' },
+      { period: 3, name: '3 месяца (-5%)', price: '4513', total: '13538' },
       { period: 6, name: '6 месяцев (-10%)', price: '4275', total: '25650' },
       { period: 12, name: '12 месяцев (-15%)', price: '4038', total: '48450' },
     ],

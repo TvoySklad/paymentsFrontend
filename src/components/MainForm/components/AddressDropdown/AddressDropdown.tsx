@@ -4,7 +4,6 @@ import triangle from '../../../../images/triangle.svg';
 import { actions } from '../../../../store/mainSlice/slice';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import {SAR_IS27} from "../../../../db/db";
 
 export const AddressDropdown: FC = () => {
   const dispatch = useDispatch();
@@ -55,7 +54,7 @@ export const AddressDropdown: FC = () => {
         />
       </div>
       <div className={[cn.dropdownMenu, isOpen ? cn.dropdownOpen : ''].join(' ')}>
-        <div className={cn.novorossBlock}>
+        <div className={cn.cityBlock}>
           <h4 className={cn.dropdown__title}>Новороссийск</h4>
           <span
             id='M75'
@@ -82,13 +81,13 @@ export const AddressDropdown: FC = () => {
             Ул Куникова 38-40
           </span>
         </div>
-        <div className={cn.kurskBlock}>
+        <div className={cn.cityBlock}>
           <h4 className={cn.dropdown__title}>Курск</h4>
           <span id='A13' className={cn.dropdown__item} onClick={setAddress} data-city={'Курск'}>
             Александр Невского, 13, ТЦ "Панорама"
           </span>
         </div>
-        <div className={cn.gelBlock}>
+        <div className={cn.cityBlock}>
           <h4 className={cn.dropdown__title}>Геленджик</h4>
           <span
             id='GEL'
@@ -99,7 +98,7 @@ export const AddressDropdown: FC = () => {
             Ул Халтурина 32
           </span>
         </div>
-        <div className={cn.gelBlock}>
+        <div className={[cn.cityBlock, cn.noBorderBot].join(' ')}>
           <h4 className={cn.dropdown__title}>Саратов</h4>
           <span
             id='SAR_IS27'
