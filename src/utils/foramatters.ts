@@ -64,7 +64,9 @@ export const generateOrderNumber = (phone: string) => {
 export const getCredsForAlfa = (value: string) => {
   switch (value) {
     case 'GEL':
-      return {username: 'tvoysklad_agr_dikanaa-api', password: 'Dikan1408@23!', link: 'https://pay.alfabank.ru/payment/rest'}
+      return {username: 'tvoysklad_agr-api', password: '45%!156Tvoy%', link: 'https://pay.alfabank.ru/payment/rest', merchantLogin: 'tvoysklad_agr_dikanaa'}
+    case 'SAR_IS27':
+      return {username: 'tvoysklad_agr-api', password: '45%!156Tvoy%', link: 'https://pay.alfabank.ru/payment/rest', merchantLogin: 'tvoysklad_agr_astahovaaa'}
     case 'K38':
       return {username: 'r-tvoysklad-api', password: 'Dubai203050', link: 'https://payment.alfabank.ru/payment/rest'}
     default:

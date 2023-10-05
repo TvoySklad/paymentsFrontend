@@ -53,14 +53,6 @@ export const Checkout: FC = () => {
     mainStorage
   ]);
 
-  const subscriptionCost = useMemo(() => {
-    if (store.address && store.boxSize) {
-      return +mainStorage[+store.boxSizeIndex].subscriptionCost;
-    }
-
-    return null;
-  }, [store.address, store.boxSize, store.boxSizeIndex, mainStorage]);
-
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
       const sum = Math.floor((totalSum * store.promoSum) - store.couponSum - store.promoWithValue);
@@ -81,7 +73,6 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (store.addressId === 'SAR_IS27') return false;
 
     return (
       store.prolongContract.length > 0 &&
