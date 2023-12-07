@@ -49,6 +49,30 @@ export const M75: AddressDataSchema = [
 
 export const D211: AddressDataSchema = [
   {
+    name: '1м²',
+    additionalText: 'Антресоль',
+    subscriptionCost: '760',
+    additionalSizes: ['1м²', '1м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '800', total: '800' },
+      { period: 3, name: '3 месяца (-5%)', price: '760', total: '2280' },
+      { period: 6, name: '6 месяцев (-10%)', price: '720', total: '4320' },
+      { period: 12, name: '12 месяцев (-15%)', price: '680', total: '8160' },
+    ],
+  },
+  {
+    name: '1м²',
+    additionalText: 'Антресоль',
+    subscriptionCost: '1140',
+    additionalSizes: ['1м²', '2м³'],
+    periods: [
+      { period: 1, name: '1 месяц', price: '1200', total: '1200' },
+      { period: 3, name: '3 месяца (-5%)', price: '1140', total: '3420' },
+      { period: 6, name: '6 месяцев (-10%)', price: '1080', total: '6480' },
+      { period: 12, name: '12 месяцев (-15%)', price: '1020', total: '12240' },
+    ],
+  },
+  {
     name: '1,5м²',
     additionalText: 'Антресоль',
     subscriptionCost: '1283',
