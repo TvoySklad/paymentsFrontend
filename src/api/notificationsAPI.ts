@@ -23,15 +23,15 @@ export const sendTelegramMessage = async (message: string) => {
 
 export const sendEmailNotification = async (message: string) => {
 
-
-  emailjs
-    .send('service_w87oks8', 'template_r5ildms', { message: message }, 'krTxdMKPrxEKPZQAx')
-    .then(
-      (result) => {
-        console.log(result.text);
-      },
-      (error) => {
-        console.log(error.text);
-      }
-    );
+  return message;
+  // emailjs
+  //   .send('service_w87oks8', 'template_r5ildms', { message: message }, 'krTxdMKPrxEKPZQAx')
+  //   .then(
+  //     (result) => {
+  //       console.log(result.text);
+  //     },
+  //     (error) => {
+  //       console.log(error.text);
+  //     }
+  //   );
 };
