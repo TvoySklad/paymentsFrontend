@@ -26,6 +26,8 @@ export const updateCoupon = createAsyncThunk(
 
       const response = await axios.patch<Coupon>(address);
 
+      console.log(response)
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue('Something went wrong');

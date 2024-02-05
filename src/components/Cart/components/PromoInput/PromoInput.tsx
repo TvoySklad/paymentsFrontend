@@ -63,7 +63,7 @@ export const PromoInput: FC = (props) => {
       dispatch(actions.setCouponActivated(false));
       dispatch(actions.setCouponActivatedValue(''));
       dispatch(actions.setCouponSum(null));
-      if (coupon.payload === 'Промокод уже был использован') {
+      if (coupon.payload === 'Промокод уже был использован' || coupon.payload.value === 'ВК028') {
         setError('Этот купон уже был использован');
         return;
       }
