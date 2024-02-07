@@ -109,6 +109,17 @@ export const AddressDropdown: FC = () => {
             Ул Н.В. Исаева, д. 27
           </span>
         </div>
+        <div className={[cn.cityBlock, cn.noBorderBot].join(' ')}>
+          <h4 className={cn.dropdown__title}>Ростов-на-Дону</h4>
+          <span
+            id='ROS148'
+            className={cn.dropdown__item}
+            onClick={setAddress}
+            data-city={'Ростов-на-Дону'}
+          >
+            Ул Пахотная, д. 148/73
+          </span>
+        </div>
       </div>
     </div>
   );

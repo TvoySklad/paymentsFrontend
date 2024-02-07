@@ -3,7 +3,7 @@ import cn from './BoxSizeBlock.module.scss';
 import {BoxSizeItem} from '../BoxSizeItem/BoxSizeItem';
 import {getStore} from '../../../../store/mainSlice/getStore';
 
-import {A13, D211, M75, K38, GEL, SAR_IS27} from '../../../../db/db';
+import {A13, D211, M75, K38, GEL, SAR_IS27, ROS148} from '../../../../db/db';
 import {useSelector} from 'react-redux';
 
 export const BoxSizeBlock: FC = () => {
@@ -13,6 +13,8 @@ export const BoxSizeBlock: FC = () => {
     switch (store.addressId) {
       case 'M75':
         return M75;
+      case 'ROS148':
+        return ROS148;
       case 'D211':
         return D211;
       case 'K38':

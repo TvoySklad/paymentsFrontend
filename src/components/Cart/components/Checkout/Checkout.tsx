@@ -2,19 +2,16 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import cn from './Checkout.module.scss';
 import { getStore } from '../../../../store/mainSlice/getStore';
 import { useDispatch, useSelector } from 'react-redux';
-import {A13, D211, M75, K38, GEL, SAR_IS27} from '../../../../db/db';
+import { A13, D211, M75, ROS148, K38, GEL, SAR_IS27 } from '../../../../db/db';
 import {
   handleSendAlfaPaymentResultNotifications,
   handleSendManagerNotifications
 } from '../../../../api/notificationsAPI';
 import { actions } from '../../../../store/mainSlice/slice';
 
-import {
-  createOrder,
-  getOrderStatus
-} from '../../../../services/alfapayments';
+import { createOrder, getOrderStatus } from '../../../../services/alfapayments';
 import { PayResult } from '../PaymentResultModal/PayResult';
-import {PromoInput} from "../PromoInput/PromoInput";
+import { PromoInput } from '../PromoInput/PromoInput';
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
@@ -24,6 +21,8 @@ export const Checkout: FC = () => {
     switch (store.addressId) {
       case 'M75':
         return M75;
+      case 'ROS148':
+        return ROS148;
       case 'D211':
         return D211;
       case 'K38':
@@ -55,17 +54,25 @@ export const Checkout: FC = () => {
 
   const toPaySum = useMemo(() => {
     if (store.address && store.boxSize && store.rentalPeriod) {
-      const sum = Math.floor((totalSum * store.promoSum) - store.couponSum - store.promoWithValue);
-      return sum >= 0 ? sum : 0
+      const sum = Math.floor(totalSum * store.promoSum - store.couponSum - store.promoWithValue);
+      return sum >= 0 ? sum : 0;
     }
     return 0;
-  }, [totalSum, store.address, store.boxSize, store.rentalPeriod, store.promoSum, store.promoWithValue, store.couponSum]);
+  }, [
+    totalSum,
+    store.address,
+    store.boxSize,
+    store.rentalPeriod,
+    store.promoSum,
+    store.promoWithValue,
+    store.couponSum
+  ]);
 
   const discount = useMemo(() => {
     if (store.rentalPeriodIndex > 0) {
       return (
         +mainStorage[+store.boxSizeIndex].periods[0].total *
-        +mainStorage[+store.boxSizeIndex].periods[+store.rentalPeriodIndex].period -
+          +mainStorage[+store.boxSizeIndex].periods[+store.rentalPeriodIndex].period -
         totalSum
       );
     }
@@ -73,6 +80,9 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
+    if (mainStorage === ROS148) {
+      return false;
+    }
 
     return (
       store.prolongContract.length > 0 &&
@@ -91,7 +101,8 @@ export const Checkout: FC = () => {
     store.boxSize,
     store.rentalPeriod,
     store.userName,
-    store.userPhone
+    store.userPhone,
+    mainStorage
   ]);
 
   const [isPayResultModalOpen, setIsPayResultModalOpen] = useState(false);
@@ -111,17 +122,23 @@ export const Checkout: FC = () => {
         console.log('success');
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
-        await handleSendAlfaPaymentResultNotifications({
-          amount: (result.depositAmount / 100).toString() || '',
-        }, true)
+        await handleSendAlfaPaymentResultNotifications(
+          {
+            amount: (result.depositAmount / 100).toString() || ''
+          },
+          true
+        );
       } else {
         console.log('fail');
         setIsAlfaPaymentSuccessful(false);
         setIsPayResultModalOpen(true);
-        await handleSendAlfaPaymentResultNotifications({
-          amount: (result.depositAmount / 100).toString() || '',
-          errorCode: result.ErrorCode || '',
-        }, false)
+        await handleSendAlfaPaymentResultNotifications(
+          {
+            amount: (result.depositAmount / 100).toString() || '',
+            errorCode: result.ErrorCode || ''
+          },
+          false
+        );
       }
 
       setTimeout(() => {
@@ -146,7 +163,7 @@ export const Checkout: FC = () => {
           }
           break;
         case 'Full':
-            handlePayAlfa();
+          handlePayAlfa();
           break;
         default:
           break;
@@ -154,12 +171,16 @@ export const Checkout: FC = () => {
     }
   }, [store.paymentType]);
 
-
   const handlePayAlfa = async () => {
     if (store.paymentType === 'Reccurent') {
       return;
     } else {
-      const response = await createOrder(toPaySum, store.userEmail, store.userPhone, store.addressId);
+      const response = await createOrder(
+        toPaySum,
+        store.userEmail,
+        store.userPhone,
+        store.addressId
+      );
       if (response?.formUrl) {
         await handleSendManagerNotifications(store, true);
         window.location.href = response.formUrl;
@@ -188,8 +209,9 @@ export const Checkout: FC = () => {
         {store.promoActivated && (
           <div className={cn.summaryBlock}>
             <span className={cn.summaryBlock__title}>Промокод</span>
-            <span
-              className={cn.summaryBlock__value}>{((totalSum - (totalSum * store.promoSum)) + store.promoWithValue).toString()}₽</span>
+            <span className={cn.summaryBlock__value}>
+              {(totalSum - totalSum * store.promoSum + store.promoWithValue).toString()}₽
+            </span>
           </div>
         )}
         {store.couponActivated && (
@@ -209,14 +231,17 @@ export const Checkout: FC = () => {
         </button>
       </div>
       <div className={cn.agreement}>
-        <a className={cn.agreement__text} href='https://tvoysklad.com/privacy' target='blank'>
+        <a className={cn.agreement__text} href="https://tvoysklad.com/privacy" target="blank">
           Нажимая оплатить или оформить подписку, я даю свое согласие с условиями Оферты, а также с
           условиями договора-оферты и на обработку персональных данных и ознакомлен с политикой
           конфиденциальности.
         </a>
       </div>
-      <PayResult isOpen={isPayResultModalOpen} setIsOpen={setIsPayResultModalOpen}
-                 isSuccess={isAlfaPaymentSuccessful} />
+      <PayResult
+        isOpen={isPayResultModalOpen}
+        setIsOpen={setIsPayResultModalOpen}
+        isSuccess={isAlfaPaymentSuccessful}
+      />
     </div>
   );
 };
