@@ -66,20 +66,20 @@ export const PromoInput: FC = (props) => {
       dispatch(actions.setCouponSum(null));
       if (coupon.payload === 'Промокод уже был использован') {
         setError('Этот купон уже был использован');
-        return;
+        return 'used coupon';
       }
       setError('Такого купона не существует');
     } catch {
       setError('Произошла ошибка - перезагрузите страницу и попробуйте еще раз');
-      return;
+      return true;
     }
   }, [store.fetchedCoupon, dispatch, store.coupon, store.couponActivatedValue, store.couponActivated]);
 
   const checkPromo = async () => {
     const coupon = await checkCoupon();
-
-    if (coupon === 'success coupon') return;
-
+    
+    if (coupon === 'success coupon' || coupon === 'used coupon') return;
+    
     checkPromocode();
   }
 
