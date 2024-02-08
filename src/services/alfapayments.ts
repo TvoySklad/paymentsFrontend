@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {generateOrderNumber, getCredsForAlfa} from '../utils/foramatters';
 
-export const createOrder = async (sum: number, email: string, phone: string, addressId: string) => {
+export const createOrder = async (sum: number, email: string, phone: string, addressId: string, couponId: string) => {
   const orderNumber = generateOrderNumber(phone);
   const { username, password, link, merchantLogin } = getCredsForAlfa(addressId);
   try {
@@ -14,7 +14,7 @@ export const createOrder = async (sum: number, email: string, phone: string, add
           orderNumber: orderNumber.toString(),
           bindingId: phone.replace(/[^0-9]+/g, ''),
           amount: sum * 100,
-          returnUrl: `https://pay.tvoysklad.com/?addressId=${addressId}`,
+          returnUrl: `https://pay.tvoysklad.com/?addressId=${addressId}&couponId=${couponId || 'nocoupon'}`,
           failUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
           email,
           phone,
@@ -39,7 +39,7 @@ export const createOrder = async (sum: number, email: string, phone: string, add
           orderNumber: orderNumber.toString(),
           bindingId: phone.replace(/[^0-9]+/g, ''),
           amount: sum * 100,
-          returnUrl: `https://pay.tvoysklad.com/?addressId=${addressId}`,
+          returnUrl: `https://pay.tvoysklad.com/?addressId=${addressId}&couponId=${couponId || 'nocoupon'}`,
           failUrl: `https://pay.tvoysklad.com?addressId=${addressId}`,
           email,
           phone,

@@ -12,6 +12,7 @@ import { actions } from '../../../../store/mainSlice/slice';
 import { createOrder, getOrderStatus } from '../../../../services/alfapayments';
 import { PayResult } from '../PaymentResultModal/PayResult';
 import { PromoInput } from '../PromoInput/PromoInput';
+import { updateCoupon } from '../../../../services/couponsService';
 
 export const Checkout: FC = () => {
   const store = useSelector(getStore);
@@ -117,11 +118,14 @@ export const Checkout: FC = () => {
     const checkUrlParams = async () => {
       const orderId = params.get('orderId');
       const addressId = params.get('addressId');
+      const couponId = params.get('couponId');
       const result = await getOrderStatus(orderId, addressId);
       if (result.OrderStatus === 1 || result.OrderStatus === 2) {
-        console.log('success');
         setIsAlfaPaymentSuccessful(true);
         setIsPayResultModalOpen(true);
+        if (couponId && couponId !== 'nocoupon') {
+          updateCoupon(couponId);
+        }
         await handleSendAlfaPaymentResultNotifications(
           {
             amount: (result.depositAmount / 100).toString() || ''
@@ -179,7 +183,8 @@ export const Checkout: FC = () => {
         toPaySum,
         store.userEmail,
         store.userPhone,
-        store.addressId
+        store.addressId,
+        store.couponActivatedId
       );
       if (response?.formUrl) {
         await handleSendManagerNotifications(store, true);

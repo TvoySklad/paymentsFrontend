@@ -27,6 +27,7 @@ export interface StoreSchema {
   coupon: string;
   couponActivated: boolean;
   couponActivatedValue: string;
+  couponActivatedId: string;
   couponSum: number;
   couponId: number;
   totalSum: number;
