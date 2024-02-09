@@ -1,4 +1,5 @@
 import { StoreSchema } from '../store/types/types';
+import {ROS148} from '../db/db';
 
 export interface alfaPaymentResultData {
   amount: string;
@@ -67,6 +68,8 @@ export const getCredsForAlfa = (value: string) => {
       return {username: 'tvoysklad_agr-api', password: '45%!156Tvoy%', link: 'https://pay.alfabank.ru/payment/rest', merchantLogin: 'tvoysklad_agr_dikanaa'}
     case 'SAR_IS27':
       return {username: 'tvoysklad_agr-api', password: '45%!156Tvoy%', link: 'https://pay.alfabank.ru/payment/rest', merchantLogin: 'tvoysklad_agr_astahovaaa'}
+    case 'ROS148':
+      return {username: 'tvoysklad_agr-api', password: '45%!156Tvoy%', link: 'https://pay.alfabank.ru/payment/rest', merchantLogin: 'tvoysklad_agr_skladplus'}
     case 'K38':
       return {username: 'r-tvoysklad-api', password: 'Dubai203050', link: 'https://payment.alfabank.ru/payment/rest'}
     default:

@@ -81,10 +81,6 @@ export const Checkout: FC = () => {
   }, [mainStorage, totalSum, store.boxSizeIndex, store.rentalPeriodIndex]);
 
   const payButtonActive = useMemo(() => {
-    if (mainStorage === ROS148) {
-      return false;
-    }
-
     return (
       store.prolongContract.length > 0 &&
       store.prolongBoxNumber.length > 0 &&
