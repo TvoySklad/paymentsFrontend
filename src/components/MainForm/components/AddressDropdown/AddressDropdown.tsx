@@ -56,7 +56,7 @@ export const AddressDropdown: FC = () => {
       <div className={[cn.dropdownMenu, isOpen ? cn.dropdownOpen : ''].join(' ')}>
         <div className={cn.cityBlock}>
           <h4 className={cn.dropdown__title}>Новороссийск</h4>
-          <span
+          {/* <span
             id='M75'
             className={cn.dropdown__item}
             onClick={setAddress}
@@ -71,7 +71,7 @@ export const AddressDropdown: FC = () => {
             data-city={'Новороссийск'}
           >
             Пр. Дзержинского, 211/2
-          </span>
+          </span> */}
           <span
             id='K38'
             className={cn.dropdown__item}
@@ -81,7 +81,7 @@ export const AddressDropdown: FC = () => {
             Ул Куникова 38-40
           </span>
         </div>
-        <div className={cn.cityBlock}>
+        {/* <div className={cn.cityBlock}>
           <h4 className={cn.dropdown__title}>Курск</h4>
           <span id='A13' className={cn.dropdown__item} onClick={setAddress} data-city={'Курск'}>
             Александр Невского, 13, ТЦ "Панорама"
@@ -108,7 +108,7 @@ export const AddressDropdown: FC = () => {
           >
             Ул Н.В. Исаева, д. 27
           </span>
-        </div>
+        </div> */}
         <div className={[cn.cityBlock, cn.noBorderBot].join(' ')}>
           <h4 className={cn.dropdown__title}>Ростов-на-Дону</h4>
           <span
